@@ -14,7 +14,36 @@ public class MainWindowController {
     private BorderPane mainBorderPane;
 
     @FXML
-    private void handleShowAllPatient(ActionEvent event) {
+    private void initialize() {
+        if (!isUserLoggedIn()) {
+            loadLoginPage();
+        } else {
+            loadMainContent();
+        }
+    }
+
+    private boolean isUserLoggedIn() {
+//
+        return false;
+    }
+
+    private void loadLoginPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/LoginView.fxml"));
+            mainBorderPane.setCenter(loader.load());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadMainContent() {
+        if (isUserLoggedIn()) {
+            handleShowAllPatient();
+        }
+    }
+
+    @FXML
+    private void handleShowAllPatient() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllPatientView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
@@ -24,7 +53,7 @@ public class MainWindowController {
     }
 
     @FXML
-    private void handleShowAllTreatments(ActionEvent event) {
+    private void handleShowAllTreatments() {
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllTreatmentView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
@@ -41,5 +70,7 @@ public class MainWindowController {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    public void handleLogout(ActionEvent actionEvent) {
     }
 }
+
