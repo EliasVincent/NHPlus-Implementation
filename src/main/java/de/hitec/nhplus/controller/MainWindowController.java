@@ -70,6 +70,9 @@ public class MainWindowController {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+    }
+    
+    @FXML
     public void handleLogout(ActionEvent actionEvent) {
     }
 }
