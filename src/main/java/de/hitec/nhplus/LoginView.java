@@ -1,2 +1,4 @@
-package de.hitec.nhplus;public class LoginView {
+package de.hitec.nhplus;
+
+public class LoginView {
 }

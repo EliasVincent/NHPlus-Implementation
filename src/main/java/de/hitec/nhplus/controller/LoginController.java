@@ -1,2 +1,5 @@
-package de.hitec.nhplus.controller;public class LoginController {
+package de.hitec.nhplus.controller;
+
+public class LoginController {
+
 }
