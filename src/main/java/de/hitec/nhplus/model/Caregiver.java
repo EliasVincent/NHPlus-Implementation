@@ -1,13 +1,14 @@
 package de.hitec.nhplus.model;
 
 import de.hitec.nhplus.utils.DateConverter;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 
 import java.time.LocalDate;
 
 public class Caregiver extends Person {
 
-    private long cid;
+    private LongProperty cid;
     /** This is a string to support thing like the "+" in mobile numbers */
     private String phoneNumber;
     private boolean locked;
@@ -15,15 +16,15 @@ public class Caregiver extends Person {
     private String dateCreated;
 
     public long getCid() {
-        return cid;
+        return cid.get();
     }
 
-    public long cidProperty() {
+    public LongProperty cidProperty() {
         return cid;
     }
 
     public void setCid(long cid) {
-        this.cid = cid;
+        this.cid.set(cid);
     }
 
     public String getPhoneNumber() {
@@ -53,7 +54,7 @@ public class Caregiver extends Person {
     /** Caregiver with id */
     public Caregiver(long cid, String firstName, String surname, String phoneNumber, boolean locked, String dateCreated) {
         super(firstName, surname);
-        this.cid = cid;
+        this.cid = new SimpleLongProperty(cid);
         this.phoneNumber = phoneNumber;
         this.locked = locked;
         this.dateCreated = dateCreated;
