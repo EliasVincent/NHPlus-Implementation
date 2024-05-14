@@ -1,11 +1,10 @@
 package de.hitec.nhplus.utils;
 
-import de.hitec.nhplus.datastorage.ConnectionBuilder;
-import de.hitec.nhplus.datastorage.DaoFactory;
-import de.hitec.nhplus.datastorage.PatientDao;
-import de.hitec.nhplus.datastorage.TreatmentDao;
+import de.hitec.nhplus.datastorage.*;
+import de.hitec.nhplus.model.Caregiver;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.model.Treatment;
+import de.hitec.nhplus.model.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -31,8 +30,12 @@ public class SetUpDB {
         SetUpDB.wipeDb(connection);
         SetUpDB.setUpTablePatient(connection);
         SetUpDB.setUpTableTreatment(connection);
+        SetUpDB.setUpTableCaregiver(connection);
+        SetUpDB.setUpTableUser(connection);
         SetUpDB.setUpPatients();
         SetUpDB.setUpTreatments();
+        SetUpDB.setUpCaregivers();
+        SetUpDB.setUpUsers();
     }
 
     /**
@@ -42,6 +45,8 @@ public class SetUpDB {
         try (Statement statement = connection.createStatement()) {
             statement.execute("DROP TABLE patient");
             statement.execute("DROP TABLE treatment");
+            statement.execute("DROP TABLE caregiver");
+            statement.execute("DROP TABLE user");
         } catch (SQLException exception) {
             System.out.println(exception.getMessage());
         }
@@ -54,8 +59,7 @@ public class SetUpDB {
                 "   surname TEXT NOT NULL, " +
                 "   dateOfBirth TEXT NOT NULL, " +
                 "   carelevel TEXT NOT NULL, " +
-                "   roomnumber TEXT NOT NULL, " +
-                "   assets TEXt NOT NULL" +
+                "   roomnumber TEXT NOT NULL " +
                 ");";
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);
@@ -87,12 +91,12 @@ public class SetUpDB {
     private static void setUpPatients() {
         try {
             PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
-            dao.create(new Patient("Seppl", "Herberger", convertStringToLocalDate("1945-12-01"), "4", "202", "vermögend"));
-            dao.create(new Patient("Martina", "Gerdsen", convertStringToLocalDate("1954-08-12"), "5", "010", "arm"));
-            dao.create(new Patient("Gertrud", "Franzen", convertStringToLocalDate("1949-04-16"), "3", "002", "normal"));
-            dao.create(new Patient("Ahmet", "Yilmaz", convertStringToLocalDate("1941-02-22"), "3", "013", "normal"));
-            dao.create(new Patient("Hans", "Neumann", convertStringToLocalDate("1955-12-12"), "2", "001", "sehr vermögend"));
-            dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "110", "arm"));
+            dao.create(new Patient("Seppl", "Herberger", convertStringToLocalDate("1945-12-01"), "4", "202"));
+            dao.create(new Patient("Martina", "Gerdsen", convertStringToLocalDate("1954-08-12"), "5", "010"));
+            dao.create(new Patient("Gertrud", "Franzen", convertStringToLocalDate("1949-04-16"), "3", "002"));
+            dao.create(new Patient("Ahmet", "Yilmaz", convertStringToLocalDate("1941-02-22"), "3", "013"));
+            dao.create(new Patient("Hans", "Neumann", convertStringToLocalDate("1955-12-12"), "2", "001"));
+            dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "110"));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -114,6 +118,60 @@ public class SetUpDB {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    private static void setUpTableCaregiver(Connection connection) {
+        final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
+                "   cid INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   firstname TEXT NOT NULL, " +
+                "   surname TEXT NOT NULL, " +
+                "   phonenumber TEXT NOT NULL, " +
+                "   locked BOOLEAN NOT NULL, " +
+                "   datecreated TEXT NOT NULL" +
+                ");";
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(SQL);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void setUpCaregivers() {
+        try {
+            CaregiverDAO dao = DaoFactory.getDaoFactory().createCaregiverDAO();
+            dao.create(new Caregiver(0, "Hans", "Müller", "0176-12345678", false, "2023-06-03"));
+            dao.create(new Caregiver(1, "Karin", "Schmidt", "0176-12345679", false, "2023-06-03"));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    private static void setUpTableUser(Connection connection) {
+        final String SQL = "CREATE TABLE IF NOT EXISTS user (" +
+                "   id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   email TEXT NOT NULL, " +
+                "   password TEXT NOT NULL" +
+                ");";
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(SQL);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
+
+    private static void setUpUsers() {
+        try {
+            UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
+            dao.create(new User("user1@gmail.com", hashPassword("111111")));
+            dao.create(new User("user2@gmail.com", hashPassword("111111")));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
+
+    // TODO:
+    private static String hashPassword(String number) {
+        return number;
     }
 
     public static void main(String[] args) {
