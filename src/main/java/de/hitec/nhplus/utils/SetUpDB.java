@@ -51,7 +51,28 @@ public class SetUpDB {
             System.out.println(exception.getMessage());
         }
     }
+    private static void setUpTableUser(Connection connection) {
+        final String SQL = "CREATE TABLE IF NOT EXISTS user (" +
+                "   id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "   email TEXT NOT NULL, " +
+                "   password TEXT NOT NULL" +
+                ");";
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(SQL);
+        } catch (SQLException exception) {
+            System.out.println(exception.getMessage());
+        }
+    }
 
+    private static void setUpUsers() {
+        try {
+            UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
+            dao.create(new User("user3@gmail.com", hashPassword("333333")));
+            dao.create(new User("user2@gmail.com", hashPassword("222222")));
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+    }
     private static void setUpTablePatient(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS patient (" +
                 "   pid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -120,7 +141,7 @@ public class SetUpDB {
         }
     }
 
-    private static void setUpTableCaregiver(Connection connection) {
+private static void setUpTableCaregiver(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
                 "   cid INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "   firstname TEXT NOT NULL, " +
@@ -146,28 +167,6 @@ public class SetUpDB {
         }
     }
 
-    private static void setUpTableUser(Connection connection) {
-        final String SQL = "CREATE TABLE IF NOT EXISTS user (" +
-                "   id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "   email TEXT NOT NULL, " +
-                "   password TEXT NOT NULL" +
-                ");";
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(SQL);
-        } catch (SQLException exception) {
-            System.out.println(exception.getMessage());
-        }
-    }
-
-    private static void setUpUsers() {
-        try {
-            UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
-            dao.create(new User("user1@gmail.com", hashPassword("111111")));
-            dao.create(new User("user2@gmail.com", hashPassword("111111")));
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-    }
 
     // TODO:
     private static String hashPassword(String number) {

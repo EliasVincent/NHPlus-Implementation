@@ -4,26 +4,30 @@ import de.hitec.nhplus.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-
+import de.hitec.nhplus.controller.SessionManager;
 import java.io.IOException;
 
 public class MainWindowController {
 
     @FXML
     private BorderPane mainBorderPane;
+    @FXML
+    private Button logoutButton;
 
     @FXML
     private void initialize() {
-        if (!isUserLoggedIn()) {
+        if (!SessionManager.getInstance().isLoggedIn()) {
             loadLoginPage();
+            setLogoutButtonVisible(false);
         } else {
             loadMainContent();
+            setLogoutButtonVisible(true);
         }
     }
-
     private boolean isUserLoggedIn() {
-        return true;
+        return false;
     }
 
     private void loadLoginPage() {
@@ -75,10 +79,15 @@ public class MainWindowController {
             exception.printStackTrace();
         }
     }
-    
-    @FXML
+
     public void handleLogout(ActionEvent actionEvent) {
+        SessionManager.getInstance().logout();
         loadLoginPage();
+        setLogoutButtonVisible(false);
+    }
+
+    public void setLogoutButtonVisible(boolean visible) {
+        logoutButton.setVisible(visible);
     }
 }
 
