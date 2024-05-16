@@ -48,7 +48,7 @@ public class MainWindowController {
 
     @FXML
     private void handleShowAllPatient() {
-        if (!isUserLoggedIn()) return;
+        if (isUserLoggedIn()) return;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllPatientView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
@@ -60,7 +60,7 @@ public class MainWindowController {
 
     @FXML
     private void handleShowAllTreatments() {
-        if (!isUserLoggedIn()) return;
+        if (isUserLoggedIn()) return;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllTreatmentView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
@@ -71,7 +71,7 @@ public class MainWindowController {
 
     @FXML
     public void handleShowAllCaregiver(ActionEvent actionEvent) {
-        if (!isUserLoggedIn()) return;
+        if (isUserLoggedIn()) return;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllCaregiverView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
