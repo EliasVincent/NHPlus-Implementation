@@ -94,8 +94,8 @@ public class CaregiverDAO extends DaoImp<Caregiver> {
             preparedStatement.setString(2, caregiver.getSurname());
             preparedStatement.setString(3, caregiver.getPhoneNumber());
             preparedStatement.setBoolean(4, caregiver.isLocked());
-            preparedStatement.setLong(5, caregiver.getCid());
-            preparedStatement.setString(6, caregiver.getDateCreated());
+            preparedStatement.setString(5, caregiver.getDateCreated());
+            preparedStatement.setLong(6, caregiver.getCid());
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

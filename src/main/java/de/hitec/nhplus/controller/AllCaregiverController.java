@@ -8,10 +8,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
@@ -48,7 +45,7 @@ public class AllCaregiverController {
     private TextField txfFirstname, txfSurname, txfTelephone;
 
     @FXML
-    private Button btnAdd, btnDelete;
+    private Button btnAdd, btnDelete, btnLock;
 
     private final ObservableList<Caregiver> caregivers = FXCollections.observableArrayList();
     private CaregiverDAO dao;
@@ -76,8 +73,15 @@ public class AllCaregiverController {
         this.tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Caregiver>() {
             @Override
             public void changed(ObservableValue<? extends Caregiver> observableValue, Caregiver oldCaregiver,
-                    Caregiver newCaregiver) {
-                AllCaregiverController.this.btnDelete.setDisable(newCaregiver == null);
+                                Caregiver newCaregiver) {
+                if (newCaregiver != null && newCaregiver.isLocked()) {
+                    AllCaregiverController.this.btnDelete.setDisable(true);
+                } else if (newCaregiver == null) {
+                    AllCaregiverController.this.btnDelete.setDisable(true);
+                }
+                else {
+                    AllCaregiverController.this.btnDelete.setDisable(false);
+                }
             }
         });
 
@@ -90,6 +94,46 @@ public class AllCaregiverController {
         this.txfSurname.textProperty().addListener(inputNewCaregiverListener);
         this.txfTelephone.textProperty().addListener(inputNewCaregiverListener);
 
+        this.btnLock.setDisable(true);
+        this.tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Caregiver>() {
+            @Override
+            public void changed(ObservableValue<? extends Caregiver> observableValue, Caregiver oldCaregiver,
+                    Caregiver newCaregiver) {
+                AllCaregiverController.this.btnLock.setDisable(newCaregiver == null);
+            }
+        });
+
+        /*
+          Grey out the background of locked caregivers in the table view.
+         */
+        this.tableView.setRowFactory(tv -> new TableRow<Caregiver>() {
+            @Override
+            protected void updateItem(Caregiver caregiver, boolean empty) {
+                super.updateItem(caregiver, empty);
+
+                if (caregiver == null || empty) {
+                    setStyle("");
+                } else if (caregiver.isLocked()) {
+                    // Grey background for locked caregivers
+                    setStyle("-fx-background-color: lightgray;");
+                } else {
+                    // Normal background for other caregivers
+                    setStyle("");
+                }
+            }
+        });
+    }
+
+    /**
+     * Manually refreshes the table view.
+     */
+    private void refreshTable() {
+        this.caregivers.clear();
+        try {
+            this.caregivers.addAll(this.dao.readAll());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -119,6 +163,9 @@ public class AllCaregiverController {
         this.doUpdate(event);
     }
 
+    /**
+     * This method is called when the delete button is clicked. It deletes the selected caregiver from the database.
+     */
     public void handleDelete() {
         Caregiver selectedItem = this.tableView.getSelectionModel().getSelectedItem();
         if (selectedItem != null) {
@@ -129,8 +176,14 @@ public class AllCaregiverController {
                 exception.printStackTrace();
             }
         }
+
     }
 
+    /**
+     * This method is called when the add button is clicked. It creates a new caregiver with the data from the text fields
+     * and adds it to the database.
+     * Then, the input fields are cleared.
+     */
     public void handleAdd() {
         String surname = this.txfSurname.getText();
         String firstName = this.txfFirstname.getText();
@@ -145,6 +198,22 @@ public class AllCaregiverController {
     }
 
     /**
+     * This method is called when the lock button is clicked. It toggles the lock status of the selected caregiver.
+     */
+    public void handleLock() {
+        Caregiver selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            try {
+                selectedItem.setLocked(!selectedItem.isLocked());
+                DaoFactory.getDaoFactory().createCaregiverDAO().update(selectedItem);
+                this.refreshTable();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
+    }
+
+    /**
      * Validates the phone number. It must have at least 5 characters.
      * @param phoneNumber Phone number to validate as text from the text field.
      * @return True if the phone number is valid, false otherwise.
@@ -156,12 +225,18 @@ public class AllCaregiverController {
         return true;
     }
 
+    /**
+     * Clears the text fields for the first name, surname and phone number.
+     */
     private void clearTextfields() {
         this.txfFirstname.clear();
         this.txfSurname.clear();
         this.txfTelephone.clear();
     }
 
+    /**
+     * Reads all caregivers from the database and shows them in the table view.
+     */
     private void readAllAndShowInTableView() {
         this.caregivers.clear();
         this.dao = DaoFactory.getDaoFactory().createCaregiverDAO();
@@ -172,6 +247,10 @@ public class AllCaregiverController {
         }
     }
 
+    /**
+     * This method is called when the user edits a cell in the table view. It updates the caregiver in the database.
+     * @param event The event (button click) that triggered the method call.
+     */
     private void doUpdate(TableColumn.CellEditEvent<Caregiver, String> event) {
         try {
             this.dao.update(event.getRowValue());
