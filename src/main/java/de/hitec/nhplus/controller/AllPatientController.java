@@ -2,15 +2,13 @@ package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
+import de.hitec.nhplus.model.Caregiver;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import de.hitec.nhplus.model.Patient;
@@ -51,6 +49,9 @@ public class AllPatientController {
 
     @FXML
     private Button buttonAdd;
+
+    @FXML
+    private Button buttonLock;
 
     @FXML
     private TextField textFieldSurname;
@@ -103,8 +104,38 @@ public class AllPatientController {
         this.buttonDelete.setDisable(true);
         this.tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Patient>() {
             @Override
-            public void changed(ObservableValue<? extends Patient> observableValue, Patient oldPatient, Patient newPatient) {;
-                AllPatientController.this.buttonDelete.setDisable(newPatient == null);
+            public void changed(ObservableValue<? extends Patient> observableValue, Patient oldPatient,
+                                Patient newPatient) {
+                if (newPatient!= null && newPatient.isLocked()) {
+                    AllPatientController.this.buttonDelete.setDisable(true);
+                } else AllPatientController.this.buttonDelete.setDisable(newPatient == null);
+            }
+        });
+        this.buttonLock.setDisable(true);
+        this.tableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Patient>() {
+            @Override
+            public void changed(ObservableValue<? extends Patient> observableValue, Patient oldPatient ,
+                                Patient newPatient) {
+                AllPatientController.this.buttonLock.setDisable(newPatient == null);
+            }
+        });
+                /*
+          Grey out the background of locked caregivers in the table view.
+         */
+        this.tableView.setRowFactory(tv -> new TableRow<Patient>() {
+            @Override
+            protected void updateItem(Patient patient, boolean empty) {
+                super.updateItem(patient, empty);
+
+                if (patient == null || empty) {
+                    setStyle("");
+                } else if (patient.isLocked()) {
+                    // Grey background for locked caregivers
+                    setStyle("-fx-background-color: lightgray;");
+                } else {
+                    // Normal background for other caregivers
+                    setStyle("");
+                }
             }
         });
 
@@ -116,6 +147,17 @@ public class AllPatientController {
         this.textFieldDateOfBirth.textProperty().addListener(inputNewPatientListener);
         this.textFieldCareLevel.textProperty().addListener(inputNewPatientListener);
         this.textFieldRoomNumber.textProperty().addListener(inputNewPatientListener);
+    }
+    /**
+     * Manually refreshes the table view.
+     */
+    private void refreshTable() {
+        this.patients.clear();
+        try {
+            this.patients.addAll(this.dao.readAll());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     /**
@@ -238,6 +280,22 @@ public class AllPatientController {
         }
         readAllAndShowInTableView();
         clearTextfields();
+    }
+
+    /**
+     * This method is called when the lock button is clicked. It toggles the lock status of the selected caregiver.
+     */
+    public void handleLock() {
+        Patient  selectedItem = this.tableView.getSelectionModel().getSelectedItem();
+        if (selectedItem != null) {
+            try {
+                selectedItem.setLocked(!selectedItem.isLocked());
+                DaoFactory.getDaoFactory().createPatientDAO().update(selectedItem);
+                this.refreshTable();
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        }
     }
 
     /**

@@ -502,7 +502,7 @@
     <routine id="191" parent="1" name="fts5"/>
     <schema id="192" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-05-07.11:42:33</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-05-14.10:51:22</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="193" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1599,156 +1599,120 @@
     <argument id="557" parent="191">
       <Position>1</Position>
     </argument>
-    <table id="558" parent="192" name="caregiver"/>
-    <table id="559" parent="192" name="patient"/>
-    <table id="560" parent="192" name="sqlite_master">
+    <table id="558" parent="192" name="patient"/>
+    <table id="559" parent="192" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="561" parent="192" name="sqlite_sequence">
+    <table id="560" parent="192" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <table id="562" parent="192" name="treatment"/>
-    <column id="563" parent="558" name="cid">
+    <table id="561" parent="192" name="treatment"/>
+    <column id="562" parent="558" name="pid">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="564" parent="558" name="firstname">
+    <column id="563" parent="558" name="firstname">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="565" parent="558" name="surname">
+    <column id="564" parent="558" name="surname">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="566" parent="558" name="phonenumber">
+    <column id="565" parent="558" name="dateOfBirth">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="567" parent="558" name="locked">
-      <DasType>BOOLEAN|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>5</Position>
-    </column>
-    <column id="568" parent="558" name="datecreated">
-      <DasType>TEXT|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>6</Position>
-    </column>
-    <key id="569" parent="558">
-      <ColNames>cid</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="570" parent="559" name="pid">
-      <AutoIncrement>1</AutoIncrement>
-      <DasType>INTEGER|0s</DasType>
-      <Position>1</Position>
-    </column>
-    <column id="571" parent="559" name="firstname">
-      <DasType>TEXT|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>2</Position>
-    </column>
-    <column id="572" parent="559" name="surname">
-      <DasType>TEXT|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>3</Position>
-    </column>
-    <column id="573" parent="559" name="dateOfBirth">
-      <DasType>TEXT|0s</DasType>
-      <NotNull>1</NotNull>
-      <Position>4</Position>
-    </column>
-    <column id="574" parent="559" name="carelevel">
+    <column id="566" parent="558" name="carelevel">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="575" parent="559" name="roomnumber">
+    <column id="567" parent="558" name="roomnumber">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="576" parent="559" name="assets">
-      <DasType>TEXt|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="568" parent="558" name="locked">
+      <DasType>integer|0s</DasType>
       <Position>7</Position>
     </column>
-    <key id="577" parent="559">
+    <key id="569" parent="558">
       <ColNames>pid</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="578" parent="560" name="type">
+    <column id="570" parent="559" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="579" parent="560" name="name">
+    <column id="571" parent="559" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="580" parent="560" name="tbl_name">
+    <column id="572" parent="559" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="581" parent="560" name="rootpage">
+    <column id="573" parent="559" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="582" parent="560" name="sql">
+    <column id="574" parent="559" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="583" parent="561" name="name">
+    <column id="575" parent="560" name="name">
       <Position>1</Position>
     </column>
-    <column id="584" parent="561" name="seq">
+    <column id="576" parent="560" name="seq">
       <Position>2</Position>
     </column>
-    <column id="585" parent="562" name="tid">
+    <column id="577" parent="561" name="tid">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="586" parent="562" name="pid">
+    <column id="578" parent="561" name="pid">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="587" parent="562" name="treatment_date">
+    <column id="579" parent="561" name="treatment_date">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="588" parent="562" name="begin">
+    <column id="580" parent="561" name="begin">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="589" parent="562" name="end">
+    <column id="581" parent="561" name="end">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="590" parent="562" name="description">
+    <column id="582" parent="561" name="description">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="591" parent="562" name="remark">
+    <column id="583" parent="561" name="remark">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <foreign-key id="592" parent="562">
+    <foreign-key id="584" parent="561">
       <ColNames>pid</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>pid</RefColNames>
       <RefTableName>patient</RefTableName>
     </foreign-key>
-    <key id="593" parent="562">
+    <key id="585" parent="561">
       <ColNames>tid</ColNames>
       <Primary>1</Primary>
     </key>
