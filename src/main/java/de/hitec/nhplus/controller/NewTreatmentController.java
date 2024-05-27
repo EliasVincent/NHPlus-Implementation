@@ -25,6 +25,9 @@ public class NewTreatmentController {
     private Label labelSurname;
 
     @FXML
+    private Label labelCaregiverFirstName, labelCaregiverSurname;
+
+    @FXML
     private TextField textFieldBegin;
 
     @FXML
@@ -44,11 +47,13 @@ public class NewTreatmentController {
 
     private AllTreatmentController controller;
     private Patient patient;
+    private Caregiver caregiver;
     private Stage stage;
 
-    public void initialize(AllTreatmentController controller, Stage stage, Patient patient) {
+    public void initialize(AllTreatmentController controller, Stage stage, Patient patient, Caregiver caregiver) {
         this.controller= controller;
         this.patient = patient;
+        this.caregiver = caregiver;
         this.stage = stage;
 
         this.buttonAdd.setDisable(true);
@@ -71,11 +76,17 @@ public class NewTreatmentController {
             }
         });
         this.showPatientData();
+        this.showCaregiverData();
     }
 
     private void showPatientData(){
         this.labelFirstName.setText(patient.getFirstName());
         this.labelSurname.setText(patient.getSurname());
+    }
+
+    private void showCaregiverData(){
+        this.labelCaregiverFirstName.setText(caregiver.getFirstName());
+        this.labelCaregiverSurname.setText(caregiver.getSurname());
     }
 
     @FXML
@@ -87,8 +98,6 @@ public class NewTreatmentController {
         String remarks = textAreaRemarks.getText();
         boolean locked = false;
         String dateCreated = DateConverter.convertLocalDateToString(LocalDate.now());
-        int randId = (int) (Math.random() * 100000);
-        Caregiver caregiver = new Caregiver(randId, "Max", "Mustermann", "123456789", locked, dateCreated);
         Treatment treatment = new Treatment(patient.getPid(), caregiver.getCid(), date, begin, end, description, remarks, locked, dateCreated);
         createTreatment(treatment);
         controller.readAllAndShowInTableView();

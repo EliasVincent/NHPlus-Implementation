@@ -141,6 +141,18 @@ public class TreatmentDao extends DaoImp<Treatment> {
         return preparedStatement;
     }
 
+    private PreparedStatement getReadAllTreatmentsOfOneCaregiverByCid(long cid) {
+        PreparedStatement preparedStatement = null;
+        try {
+            final String SQL = "SELECT * FROM treatment WHERE cid = ?";
+            preparedStatement = this.connection.prepareStatement(SQL);
+            preparedStatement.setLong(1, cid);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return preparedStatement;
+    }
+
     /**
      * Queries all treatments of a given patient id (pid) and maps the results to an <code>ArrayList</code> with
      * objects of class <code>Treatment</code>.
@@ -153,6 +165,7 @@ public class TreatmentDao extends DaoImp<Treatment> {
         ResultSet result = getReadAllTreatmentsOfOnePatientByPid(pid).executeQuery();
         return getListFromResultSet(result);
     }
+
 
     /**
      * Generates a <code>PreparedStatement</code> to update the given treatment, identified
@@ -212,5 +225,20 @@ public class TreatmentDao extends DaoImp<Treatment> {
             exception.printStackTrace();
         }
         return preparedStatement;
+    }
+
+    /**
+     *
+     *     public List<Treatment> readTreatmentsByPid(long pid) throws SQLException {
+     *         ResultSet result = getReadAllTreatmentsOfOnePatientByPid(pid).executeQuery();
+     *         return getListFromResultSet(result);
+     *     }
+     * @param cid
+     * @return
+     */
+
+    public List<Treatment> readTreatmentsByCid(long cid) throws SQLException {
+        ResultSet result = getReadAllTreatmentsOfOneCaregiverByCid(cid).executeQuery();
+        return getListFromResultSet(result);
     }
 }

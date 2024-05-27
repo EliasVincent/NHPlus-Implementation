@@ -19,6 +19,7 @@
         <columns>
             <TableColumn fx:id="columnId" maxWidth="-1.0" minWidth="40.0" prefWidth="50.0" text="ID" />
             <TableColumn fx:id="columnPid" maxWidth="-1.0" minWidth="100.0" prefWidth="120.0" text="PatientID" />
+            <TableColumn fx:id="columnCid" maxWidth="-1.0" minWidth="100.0" prefWidth="120.0" text="PflegerID" />
           <TableColumn fx:id="columnDate" maxWidth="-1.0" minWidth="140.0" prefWidth="150.0" text="Datum" />
           <TableColumn fx:id="columnBegin" maxWidth="-1.0" minWidth="140.0" prefWidth="150.0" text="Beginn" />
             <TableColumn fx:id="columnEnd" maxWidth="-1.0" minWidth="140.0" prefWidth="150.0" text="Ende" />
@@ -42,7 +43,9 @@
                <children>
                   <Button fx:id="buttonNewTreament" mnemonicParsing="false" onAction="#handleNewTreatment" prefWidth="200.0" text="neue Behandlung anlegen" GridPane.columnIndex="1" />
                   <ComboBox fx:id="comboBoxPatientSelection" minWidth="160.0" onAction="#handleComboBox" prefWidth="200.0" />
-                  <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="200.0" text="Löschen" GridPane.columnIndex="2" />
+                    <ComboBox fx:id="comboBoxCaregiverSelection" minWidth="160.0" onAction="#handleCaregiverComboBox" prefWidth="200.0" GridPane.columnIndex="2" />
+                  <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="200.0" text="Löschen" GridPane.columnIndex="3" />
+                   <Button fx:id="buttonLock" mnemonicParsing="false" onAction="#handleLock" prefWidth="200.0" text="Sperren" GridPane.columnIndex="4" />
                </children>
                <padding>
                   <Insets right="10.0" />
