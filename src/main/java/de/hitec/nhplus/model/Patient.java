@@ -19,19 +19,23 @@ public class Patient extends Person {
     private final SimpleStringProperty roomNumber;
     private final List<Treatment> allTreatments = new ArrayList<>();
     private final SimpleBooleanProperty locked = new SimpleBooleanProperty(false);
-    private SimpleStringProperty dateCreated = new SimpleStringProperty(DateConverter.convertLocalDateToString(LocalDate.now()));
+    private SimpleStringProperty dateCreated = new SimpleStringProperty(
+            DateConverter.convertLocalDateToString(LocalDate.now()));
 
     /**
-     * Constructor to initiate an object of class <code>Patient</code> with the given parameter. Use this constructor
-     * to initiate objects, which are not persisted yet, because it will not have a patient id (pid).
+     * Constructor to initiate an object of class <code>Patient</code> with the
+     * given parameter. Use this constructor
+     * to initiate objects, which are not persisted yet, because it will not have a
+     * patient id (pid).
      *
-     * @param firstName First name of the patient.
-     * @param surname Last name of the patient.
+     * @param firstName   First name of the patient.
+     * @param surname     Last name of the patient.
      * @param dateOfBirth Date of birth of the patient.
-     * @param careLevel Care level of the patient.
-     * @param roomNumber Room number of the patient.
+     * @param careLevel   Care level of the patient.
+     * @param roomNumber  Room number of the patient.
      */
-    public Patient(String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber, boolean locked, String dateCreated) {
+    public Patient(String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber,
+            boolean locked, String dateCreated) {
         super(firstName, surname);
         this.dateOfBirth = new SimpleStringProperty(DateConverter.convertLocalDateToString(dateOfBirth));
         this.careLevel = new SimpleStringProperty(careLevel);
@@ -41,17 +45,19 @@ public class Patient extends Person {
     }
 
     /**
-     * Constructor to initiate an object of class <code>Patient</code> with the given parameter. Use this constructor
+     * Constructor to initiate an object of class <code>Patient</code> with the
+     * given parameter. Use this constructor
      * to initiate objects, which are already persisted and have a patient id (pid).
      *
-     * @param pid Patient id.
-     * @param firstName First name of the patient.
-     * @param surname Last name of the patient.
+     * @param pid         Patient id.
+     * @param firstName   First name of the patient.
+     * @param surname     Last name of the patient.
      * @param dateOfBirth Date of birth of the patient.
-     * @param careLevel Care level of the patient.
-     * @param roomNumber Room number of the patient.
+     * @param careLevel   Care level of the patient.
+     * @param roomNumber  Room number of the patient.
      */
-    public Patient(long pid, String firstName, String surname, LocalDate dateOfBirth, String careLevel, String roomNumber, boolean locked, String dateCreated) {
+    public Patient(long pid, String firstName, String surname, LocalDate dateOfBirth, String careLevel,
+            String roomNumber, boolean locked, String dateCreated) {
         super(firstName, surname);
         this.pid = new SimpleLongProperty(pid);
         this.dateOfBirth = new SimpleStringProperty(DateConverter.convertLocalDateToString(dateOfBirth));
@@ -139,7 +145,8 @@ public class Patient extends Person {
     }
 
     /**
-     * Adds a treatment to the list of treatments, if the list does not already contain the treatment.
+     * Adds a treatment to the list of treatments, if the list does not already
+     * contain the treatment.
      *
      * @param treatment Treatment to add.
      * @return False, if the treatment was already part of the list, else true.
@@ -152,6 +159,16 @@ public class Patient extends Person {
         return true;
     }
 
+    public Patient(String firstName, String surname, SimpleStringProperty dateOfBirth, SimpleStringProperty careLevel,
+            SimpleStringProperty roomNumber, boolean locked, SimpleLongProperty pid) {
+        super(firstName, surname);
+        this.dateOfBirth = dateOfBirth;
+        this.careLevel = careLevel;
+        this.roomNumber = roomNumber;
+        this.locked.set(locked);
+        this.pid = pid;
+    }
+
     public String toString() {
         return "Patient" + "\nMNID: " + this.pid +
                 "\nFirstname: " + this.getFirstName() +
@@ -159,6 +176,11 @@ public class Patient extends Person {
                 "\nBirthday: " + this.dateOfBirth +
                 "\nCarelevel: " + this.careLevel +
                 "\nRoomnumber: " + this.roomNumber +
+                "\nlocked: " + this.locked +
                 "\n";
+    }
+
+    public void setLocked(boolean b) {
+        this.locked.set(b);
     }
 }
