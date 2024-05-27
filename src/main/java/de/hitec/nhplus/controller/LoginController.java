@@ -59,11 +59,7 @@ public class LoginController implements Initializable {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        if (email.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Login Failed", "Please enter both email and password.");
-            return;
-        }
-        if (password.isEmpty()) {
+        if (email.isEmpty() || password.isEmpty()) {
             showAlert(Alert.AlertType.ERROR, "Login Failed", "Please enter both email and password.");
             return;
         }
