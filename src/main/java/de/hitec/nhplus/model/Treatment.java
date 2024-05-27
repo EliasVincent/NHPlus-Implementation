@@ -8,11 +8,14 @@ import java.time.LocalTime;
 public class Treatment {
     private long tid;
     private final long pid;
+    private final long cid;
     private LocalDate date;
     private LocalTime begin;
     private LocalTime end;
     private String description;
     private String remarks;
+    private boolean locked;
+    private String dateCreated;
 
     /**
      * Constructor to initiate an object of class <code>Treatment</code> with the given parameter. Use this constructor
@@ -25,14 +28,17 @@ public class Treatment {
      * @param description Description of the treatment.
      * @param remarks Remarks to the treatment.
      */
-    public Treatment(long pid, LocalDate date, LocalTime begin,
-                     LocalTime end, String description, String remarks) {
+    public Treatment(long pid, long cid, LocalDate date, LocalTime begin,
+                     LocalTime end, String description, String remarks, boolean locked, String dateCreated) {
         this.pid = pid;
+        this.cid = cid;
         this.date = date;
         this.begin = begin;
         this.end = end;
         this.description = description;
         this.remarks = remarks;
+        this.locked = locked;
+        this.dateCreated = dateCreated;
     }
 
     /**
@@ -47,15 +53,54 @@ public class Treatment {
      * @param description Description of the treatment.
      * @param remarks Remarks to the treatment.
      */
-    public Treatment(long tid, long pid, LocalDate date, LocalTime begin,
-                     LocalTime end, String description, String remarks) {
+    public Treatment(long tid, long pid, long cid, LocalDate date, LocalTime begin,
+                     LocalTime end, String description, String remarks, boolean locked, String dateCreated) {
         this.tid = tid;
         this.pid = pid;
+        this.cid = cid;
         this.date = date;
         this.begin = begin;
         this.end = end;
         this.description = description;
         this.remarks = remarks;
+        this.locked = locked;
+        this.dateCreated = dateCreated;
+    }
+
+    public void setTid(long tid) {
+        this.tid = tid;
+    }
+
+    public long getCid() {
+        return cid;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public void setBegin(LocalTime begin) {
+        this.begin = begin;
+    }
+
+    public void setEnd(LocalTime end) {
+        this.end = end;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public long getTid() {

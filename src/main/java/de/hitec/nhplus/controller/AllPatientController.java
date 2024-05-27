@@ -232,7 +232,7 @@ public class AllPatientController {
         String careLevel = this.textFieldCareLevel.getText();
         String roomNumber = this.textFieldRoomNumber.getText();
         try {
-            this.dao.create(new Patient(firstName, surname, date, careLevel, roomNumber));
+            this.dao.create(new Patient(firstName, surname, date, careLevel, roomNumber, false, DateConverter.convertLocalDateToString(LocalDate.now())));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
