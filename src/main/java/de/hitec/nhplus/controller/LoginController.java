@@ -2,13 +2,15 @@ package de.hitec.nhplus.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import de.hitec.nhplus.Main;
 import de.hitec.nhplus.model.User;
 import de.hitec.nhplus.service.AuthenticationService;
 import de.hitec.nhplus.datastorage.ConnectionBuilder;
@@ -17,12 +19,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
-import de.hitec.nhplus.controller.SessionManager;
+import java.util.ResourceBundle;
 
-
-public class LoginController {
+public class LoginController implements Initializable {
 
     @FXML
     private TextField emailField;
@@ -35,6 +37,21 @@ public class LoginController {
     public LoginController() {
         Connection connection = ConnectionBuilder.getConnection();
         this.authenticationService = new AuthenticationService(connection);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Add key event handler to emailField
+        emailField.setOnKeyPressed(this::handleKeyPressed);
+        // Add key event handler to passwordField
+        passwordField.setOnKeyPressed(this::handleKeyPressed);
+    }
+
+    private void handleKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            event.consume();
+            handleLogin(new ActionEvent(event.getSource(), null));
+        }
     }
 
     @FXML
@@ -51,7 +68,6 @@ public class LoginController {
             User user = authenticationService.authenticate(email, password);
             if (user != null) {
                 showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getEmail() + "!");
-
 
                 SessionManager.getInstance().setUserSession(user);
 
