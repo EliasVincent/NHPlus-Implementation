@@ -269,14 +269,14 @@ public class AllPatientController {
         }
 
         LocalDate creationDate = DateConverter.convertStringToLocalDate(selectedItem.getDateCreated());
-        boolean confirmDelete = showConfirmationAlert("Delete Patient", "Do you really want to delete this patient?");
+        boolean confirmDelete = showConfirmationAlert("Delete Patient", "This entry has a retention period of 10 years. Do you really want to delete this entry?");
 
         if (!confirmDelete) {
             return;
         }
 
         if (!isOverTenYears(creationDate)) {
-            showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this patient as it has not been more than 10 years since creation.");
+            showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this patient as it has not yet reached its 10 years retention period.");
             return;
         }
 

@@ -3,6 +3,7 @@ package de.hitec.nhplus.controller;
 import de.hitec.nhplus.datastorage.CaregiverDAO;
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.model.Caregiver;
+import de.hitec.nhplus.utils.DateConverter;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +13,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 
 /**
  * This class is the controller for the view AllCaregiver.fxml. It provides the functionality to show all caregivers in
@@ -137,6 +140,17 @@ public class AllCaregiverController {
     }
 
     /**
+     * This method checks if the time between the creation date and today is more than 10 years.
+     *
+     * @param creationDate The creation date of the item.
+     * @return True if the time between the creation date and today is more than 10 years, false otherwise.
+     */
+    private boolean isOverTenYears(LocalDate creationDate) {
+        LocalDate today = LocalDate.now();
+        Period period = Period.between(creationDate, today);
+        return period.getYears() >= 10;
+    }
+    /**
      * Only when the input data passes all checks, the button to add a new caregiver is enabled.
      * @return True if all input data is valid, false otherwise.
      */
@@ -164,24 +178,87 @@ public class AllCaregiverController {
     }
 
     /**
-     * This method is called when the delete button is clicked. It deletes the selected caregiver from the database.
+     * This method handles events fired by the button to delete caregivers. It calls {@link CaregiverDAO} to delete the
+     * Caregiver from the database and removes the object from the list, which is the data source of the
+     * <code>TableView</code>.
      */
+    @FXML
     public void handleDelete() {
-        Caregiver selectedItem = this.tableView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            try {
-                DaoFactory.getDaoFactory().createCaregiverDAO().deleteById(selectedItem.getCid());
-                this.tableView.getItems().remove(selectedItem);
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information");
-                alert.setHeaderText("Eintrag kann nicht gelöscht werden!");
-                alert.setContentText("Bitte löschen sie vorher alle Behandlungen, die mit diesem Eintrag verknüpft sind!");
-                alert.showAndWait();
-            }
+        Caregiver selectedItem = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedItem == null) {
+            showAlert(Alert.AlertType.ERROR, "No Selection", "No Caregiver selected", "Please select a Caregiver to delete.");
+            return;
         }
 
+        LocalDate creationDate = DateConverter.convertStringToLocalDate(selectedItem.getDateCreated());
+        boolean confirmDelete = showConfirmationAlert("Delete Caregiver", "This entry has a retention period of 10 years. Do you really want to delete this entry?");
+
+        if (!confirmDelete) {
+            return;
+        }
+
+        if (!isOverTenYears(creationDate)) {
+            showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this Caregiver as it has not yet reached its 10 years retention period.");
+            return;
+        }
+
+        try {
+            deleteCaregiver(selectedItem);
+            tableView.getItems().remove(selectedItem);
+        } catch (SQLException exception) {
+            handleSQLException(exception);
+        }
+    }
+
+    /**
+     * Displays a confirmation alert with the given title and message.
+     *
+     * @param title   The title of the confirmation alert.
+     * @param message The message content of the confirmation alert.
+     * @return true if the user confirms the action, false otherwise.
+     */
+    private boolean showConfirmationAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
+        alert.setTitle(title);
+        alert.showAndWait();
+        return alert.getResult() == ButtonType.YES;
+    }
+
+    /**
+     * Displays an alert with the specified type, title, header, and content.
+     *
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title     The title of the alert.
+     * @param header    The header text of the alert.
+     * @param content   The content text of the alert.
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String header, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    /**
+     * Deletes the specified Caregiver from the database.
+     *
+     * @param caregiver The Caregiver to be deleted.
+     * @throws SQLException If an SQL error occurs during the deletion.
+     */
+    private void deleteCaregiver(Caregiver caregiver) throws SQLException {
+        DaoFactory.getDaoFactory().createCaregiverDAO().deleteById(caregiver.getCid());
+    }
+
+    /**
+     * Handles an SQL exception by printing the stack trace and displaying an information alert.
+     *
+     * @param exception The SQLException that occurred.
+     */
+    private void handleSQLException(SQLException exception) {
+        exception.printStackTrace();
+        showAlert(Alert.AlertType.INFORMATION, "Information", "Deletion Failed", "Please delete all related treatments before deleting this entry.");
     }
 
     /**

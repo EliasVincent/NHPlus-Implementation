@@ -6,6 +6,7 @@ import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
 import de.hitec.nhplus.datastorage.TreatmentDao;
 import de.hitec.nhplus.model.Caregiver;
+import de.hitec.nhplus.utils.DateConverter;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,6 +23,8 @@ import de.hitec.nhplus.model.Treatment;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import javafx.beans.value.ObservableValue;
 import javafx.util.StringConverter;
@@ -137,6 +140,17 @@ public class AllTreatmentController {
             exception.printStackTrace();
         }
     }
+    /**
+     * This method checks if the time between the creation date and today is more than 10 years.
+     *
+     * @param creationDate The creation date of the item.
+     * @return True if the time between the creation date and today is more than 10 years, false otherwise.
+     */
+    private boolean isOverTenYears(LocalDate creationDate) {
+        LocalDate today = LocalDate.now();
+        Period period = Period.between(creationDate, today);
+        return period.getYears() >= 10;
+    }
 
     public void readAllAndShowInTableView() {
         this.treatments.clear();
@@ -243,14 +257,80 @@ public class AllTreatmentController {
 
     @FXML
     public void handleDelete() {
-        int index = this.tableView.getSelectionModel().getSelectedIndex();
-        Treatment t = this.treatments.remove(index);
-        TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
-        try {
-            dao.deleteById(t.getTid());
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        // Get the selected selectedItem from the table view
+        Treatment selectedItem = tableView.getSelectionModel().getSelectedItem();
+
+        // If no item is selected, show an alert and return
+        if (selectedItem == null) {
+            showAlert(Alert.AlertType.ERROR, "No Selection", "No Treatment selected", "Please select a Treatment to delete.");
+            return;
         }
+        LocalDate creationDate = DateConverter.convertStringToLocalDate(selectedItem.getDateCreated());
+        boolean confirmDelete = showConfirmationAlert("Delete Treatment", "This entry has a retention period of 10 years. Do you really want to delete this entry?");
+
+        if (!confirmDelete) {
+            return;
+        }
+        if (!isOverTenYears(creationDate)) {
+            showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this Treatment as it has not yet reached its 10 years retention period.");
+            return;
+        }
+        try {
+            deleteTreatment(selectedItem);
+            tableView.getItems().remove(selectedItem);
+        } catch (SQLException exception) {
+            handleSQLException(exception);
+        }
+
+    }
+
+    /**
+     * Displays a confirmation alert with the given title and message.
+     *
+     * @param title   The title of the confirmation alert.
+     * @param message The message content of the confirmation alert.
+     * @return true if the user confirms the action, false otherwise.
+     */
+    private boolean showConfirmationAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
+        alert.setTitle(title);
+        alert.showAndWait();
+        return alert.getResult() == ButtonType.YES;
+    }
+
+    /**
+     * Displays an alert with the specified type, title, header, and content.
+     *
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title     The title of the alert.
+     * @param header    The header text of the alert.
+     * @param content   The content text of the alert.
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String header, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+    /**
+     * Deletes the specified Caregiver from the database.
+     *
+     * @param treatment The Caregiver to be deleted.
+     * @throws SQLException If an SQL error occurs during the deletion.
+     */
+    private void deleteTreatment(Treatment treatment) throws SQLException {
+        DaoFactory.getDaoFactory().createCaregiverDAO().deleteById(treatment.getCid());
+    }
+
+    /**
+     * Handles an SQL exception by printing the stack trace and displaying an information alert.
+     *
+     * @param exception The SQLException that occurred.
+     */
+    private void handleSQLException(SQLException exception) {
+        exception.printStackTrace();
+        showAlert(Alert.AlertType.INFORMATION, "Information", "Deletion Failed", "Deletion Failed");
     }
 
     /**

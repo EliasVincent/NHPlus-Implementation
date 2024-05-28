@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.AllTreatmentController">
+<AnchorPane prefHeight="500.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.AllTreatmentController" stylesheets="@../CSS/Application.css">
    <children>
       <TableView fx:id="tableView" editable="true" layoutX="31.0" layoutY="35.0" onMouseClicked="#handleMouseClick" prefHeight="364.0" prefWidth="825.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0">
         <columns>
@@ -42,8 +42,8 @@
               </rowConstraints>
                <children>
                   <Button fx:id="buttonNewTreament" mnemonicParsing="false" onAction="#handleNewTreatment" prefWidth="200.0" text="neue Behandlung anlegen" GridPane.columnIndex="1" />
-                  <ComboBox promptText="Patient..." fx:id="comboBoxPatientSelection" minWidth="160.0" onAction="#handleComboBox" prefWidth="200.0" />
-                    <ComboBox promptText="Pflegekraft..." fx:id="comboBoxCaregiverSelection" minWidth="160.0" onAction="#handleCaregiverComboBox" prefWidth="200.0" GridPane.columnIndex="2" />
+                  <ComboBox promptText="Patient..." fx:id="comboBoxPatientSelection" minWidth="160.0" onAction="#handleComboBox" prefWidth="200.0" styleClass="custom-combobox"/>
+                    <ComboBox promptText="Pflegekraft..." fx:id="comboBoxCaregiverSelection" minWidth="160.0" onAction="#handleCaregiverComboBox" prefWidth="200.0" GridPane.columnIndex="2" styleClass="custom-combobox"/>
                   <Button fx:id="buttonDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="200.0" text="Löschen" GridPane.columnIndex="3" />
                    <Button fx:id="buttonLock" mnemonicParsing="false" onAction="#handleLock" prefWidth="200.0" text="Sperren" GridPane.columnIndex="4" />
                </children>
