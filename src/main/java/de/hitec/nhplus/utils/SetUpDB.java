@@ -44,8 +44,8 @@ public class SetUpDB {
      */
     public static void wipeDb(Connection connection) {
         try (Statement statement = connection.createStatement()) {
-            statement.execute("DROP TABLE patient");
             statement.execute("DROP TABLE treatment");
+            statement.execute("DROP TABLE patient");
             statement.execute("DROP TABLE caregiver");
             statement.execute("DROP TABLE user");
         } catch (SQLException exception) {
@@ -104,8 +104,8 @@ public class SetUpDB {
                 "   remark TEXT NOT NULL," +
                 "   locked BOOLEAN NOT NULL, " +
                 "   datecreated TEXT NOT NULL, " +
-                "   FOREIGN KEY (cid) REFERENCES caregiver (cid) ON DELETE CASCADE, " +
-                "   FOREIGN KEY (pid) REFERENCES patient (pid) ON DELETE CASCADE " +
+                "   FOREIGN KEY (cid) REFERENCES caregiver (cid), " +
+                "   FOREIGN KEY (pid) REFERENCES patient (pid) " +
                 ");";
 
         try (Statement statement = connection.createStatement()) {

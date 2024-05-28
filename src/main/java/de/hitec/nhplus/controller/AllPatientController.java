@@ -256,6 +256,11 @@ public class AllPatientController {
                 this.tableView.getItems().remove(selectedItem);
             } catch (SQLException exception) {
                 exception.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Information");
+                alert.setHeaderText("Eintrag kann nicht gelöscht werden!");
+                alert.setContentText("Bitte löschen sie vorher alle Behandlungen, die mit diesem Eintrag verknüpft sind!");
+                alert.showAndWait();
             }
         }
     }
