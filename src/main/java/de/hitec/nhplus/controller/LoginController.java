@@ -46,6 +46,16 @@ public class LoginController implements Initializable {
         this.authenticationService = new AuthenticationService(connection);
     }
 
+    /**
+     * The initialize method is called automatically when the associated FXML document is loaded.
+     * This method initializes the user interface and sets placeholder texts, adds event handlers
+     * and loads an image for the user logo.
+     * @param location The URL used as the basis for resolving relative paths. Can be null,
+     * if the FXML document was not loaded from a URL.
+     * @param resources A ResourceBundle containing the resources for localization. Can be null,
+     * if the FXML document was not loaded with a ResourceBundle.
+     */
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set placeholder text
@@ -62,6 +72,15 @@ public class LoginController implements Initializable {
         userLogo.setImage(image);
     }
 
+    /**
+     * Handles key pressed events, specifically targeting the Enter key.
+     * This method is designed to be invoked when a key press event occurs,
+     * checking if the pressed key is the Enter key. If the Enter key is pressed,
+     * the method consumes the event, preventing further propagation, and triggers
+     * the login process through the handleLogin method.
+     * @param event The KeyEvent representing the key press event.
+     */
+
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             event.consume();
@@ -69,6 +88,15 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Handles the login process when triggered by an ActionEvent.
+     * This method retrieves the email and password from input fields,
+     * validates them, and attempts to authenticate the user. If authentication
+     * is successful, it displays a welcome message, sets the user session, closes
+     * the login window, and opens the main application window. If authentication
+     * fails, it displays an error message. Database connectivity errors are also handled.
+     * @param event The ActionEvent triggering the login process.
+     */
     @FXML
     private void handleLogin(ActionEvent event) {
         String email = emailField.getText();
@@ -98,7 +126,13 @@ public class LoginController implements Initializable {
             showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while connecting to the database.");
         }
     }
-
+    /**
+     * Handles the cancellation action by exiting the application.
+     * This method is invoked when the cancellation action is triggered,
+     * typically in response to a user action such as clicking a cancel button.
+     * It exits the application by calling Platform.exit().
+     * @param event The ActionEvent triggering the cancellation action.
+     */
     @FXML
     private void handleCancel(ActionEvent event) {
         Platform.exit();

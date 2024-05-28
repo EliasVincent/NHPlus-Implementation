@@ -16,6 +16,7 @@ import de.hitec.nhplus.utils.DateConverter;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.Period;
 
 
 /**
@@ -161,6 +162,17 @@ public class AllPatientController {
     }
 
     /**
+     * This method checks if the time between the creation date and today is more than 10 years.
+     *
+     * @param creationDate The creation date of the item.
+     * @return True if the time between the creation date and today is more than 10 years, false otherwise.
+     */
+    private boolean isOverTenYears(LocalDate creationDate) {
+        LocalDate today = LocalDate.now();
+        Period period = Period.between(creationDate, today);
+        return period.getYears() >= 10;
+    }
+    /**
      * When a cell of the column with first names was changed, this method will be called, to persist the change.
      *
      * @param event Event including the changed object and the change.
@@ -249,21 +261,83 @@ public class AllPatientController {
      */
     @FXML
     public void handleDelete() {
-        Patient selectedItem = this.tableView.getSelectionModel().getSelectedItem();
-        if (selectedItem != null) {
-            try {
-                DaoFactory.getDaoFactory().createPatientDAO().deleteById(selectedItem.getPid());
-                this.tableView.getItems().remove(selectedItem);
-            } catch (SQLException exception) {
-                exception.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information");
-                alert.setHeaderText("Eintrag kann nicht gelöscht werden!");
-                alert.setContentText("Bitte löschen sie vorher alle Behandlungen, die mit diesem Eintrag verknüpft sind!");
-                alert.showAndWait();
-            }
+        Patient selectedItem = tableView.getSelectionModel().getSelectedItem();
+
+        if (selectedItem == null) {
+            showAlert(Alert.AlertType.ERROR, "No Selection", "No patient selected", "Please select a patient to delete.");
+            return;
+        }
+
+        LocalDate creationDate = DateConverter.convertStringToLocalDate(selectedItem.getDateCreated());
+        boolean confirmDelete = showConfirmationAlert("Delete Patient", "Do you really want to delete this patient?");
+
+        if (!confirmDelete) {
+            return;
+        }
+
+        if (!isOverTenYears(creationDate)) {
+            showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this patient as it has not been more than 10 years since creation.");
+            return;
+        }
+
+        try {
+            deletePatient(selectedItem);
+            tableView.getItems().remove(selectedItem);
+        } catch (SQLException exception) {
+            handleSQLException(exception);
         }
     }
+
+    /**
+     * Displays a confirmation alert with the given title and message.
+     *
+     * @param title   The title of the confirmation alert.
+     * @param message The message content of the confirmation alert.
+     * @return true if the user confirms the action, false otherwise.
+     */
+    private boolean showConfirmationAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, message, ButtonType.YES, ButtonType.NO);
+        alert.setTitle(title);
+        alert.showAndWait();
+        return alert.getResult() == ButtonType.YES;
+    }
+
+    /**
+     * Displays an alert with the specified type, title, header, and content.
+     *
+     * @param alertType The type of the alert (e.g., ERROR, INFORMATION).
+     * @param title     The title of the alert.
+     * @param header    The header text of the alert.
+     * @param content   The content text of the alert.
+     */
+    private void showAlert(Alert.AlertType alertType, String title, String header, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    /**
+     * Deletes the specified patient from the database.
+     *
+     * @param patient The patient to be deleted.
+     * @throws SQLException If an SQL error occurs during the deletion.
+     */
+    private void deletePatient(Patient patient) throws SQLException {
+        DaoFactory.getDaoFactory().createPatientDAO().deleteById(patient.getPid());
+    }
+
+    /**
+     * Handles an SQL exception by printing the stack trace and displaying an information alert.
+     *
+     * @param exception The SQLException that occurred.
+     */
+    private void handleSQLException(SQLException exception) {
+        exception.printStackTrace();
+        showAlert(Alert.AlertType.INFORMATION, "Information", "Deletion Failed", "Please delete all related treatments before deleting this entry.");
+    }
+
 
     /**
      * This method handles the events fired by the button to add a patient. It collects the data from the
