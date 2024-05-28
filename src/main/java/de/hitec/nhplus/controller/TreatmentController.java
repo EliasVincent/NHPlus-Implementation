@@ -27,6 +27,12 @@ public class TreatmentController {
     private Label labelCaregiverSurname;
 
     @FXML
+    private Label labelCaregiverFirstName;
+
+    @FXML
+    private Label labelCaregiverPhone;
+
+    @FXML
     private TextField textFieldBegin;
 
     @FXML
@@ -65,6 +71,8 @@ public class TreatmentController {
     private void showData(){
         this.labelPatientName.setText(patient.getSurname()+", "+patient.getFirstName());
         this.labelCaregiverSurname.setText(caregiver.getSurname());
+        this.labelCaregiverFirstName.setText(caregiver.getFirstName());
+        this.labelCaregiverPhone.setText(caregiver.getPhoneNumber());
         this.labelCareLevel.setText(patient.getCareLevel());
         LocalDate date = DateConverter.convertStringToLocalDate(treatment.getDate());
         this.datePicker.setValue(date);

@@ -72,6 +72,18 @@
                </font>
             </Label>
             <Label fx:id="labelCaregiverSurname" text="CaregiverSurname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Telefon" GridPane.rowIndex="2">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label text="Pflegekraft Vorname:" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelCaregiverFirstName" text="CaregiverFirstname" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="labelCaregiverPhone" text="CaregiverPhone" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
       <HBox layoutX="298.0" layoutY="237.0" spacing="20.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0">
