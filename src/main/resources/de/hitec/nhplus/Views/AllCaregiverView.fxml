@@ -5,7 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="855.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.hitec.nhplus.controller.AllCaregiverController">
+<AnchorPane prefHeight="500.0"
+            prefWidth="855.0"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="de.hitec.nhplus.controller.AllCaregiverController"
+            stylesheets="@../CSS/Application.css">
    <children>
       <TableView fx:id="tableView" editable="true" layoutX="31.0" layoutY="40.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="80.0">
          <columns>
@@ -23,14 +28,14 @@
             <TextField fx:id="txfSurname" prefHeight="26.0" prefWidth="220.0" promptText="Nachname" />
             <TextField fx:id="txfFirstname" prefHeight="26.0" prefWidth="220.0" promptText="Vorname" />
             <TextField fx:id="txfTelephone" prefWidth="160.0" promptText="Telefonnummer" />
-            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="90.0" text="Hinzufügen" />
-            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="90.0" text="Löschen" />
-            <Button fx:id="btnLock" mnemonicParsing="false" onAction="#handleLock" prefWidth="90.0" text="Sperren" />
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#handleAdd" prefWidth="150.0" text="Hinzufügen" />
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#handleDelete" prefWidth="150.0" text="Löschen" />
+            <Button fx:id="btnLock" mnemonicParsing="false" onAction="#handleLock" prefWidth="150.0" text="Sperren" />
          </children>
       </HBox>
       <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefWidth="200.0" spacing="25.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" minWidth="400.0" text="Pfleger/innen" textAlignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" minWidth="400.0" text="Pfleger/innen" textAlignment="CENTER" styleClass="header-label">
                <font>
                   <Font size="36.0" />
                </font>

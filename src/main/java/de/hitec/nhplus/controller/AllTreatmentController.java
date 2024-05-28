@@ -298,7 +298,7 @@ public class AllTreatmentController {
 
     public void newTreatmentWindow(Patient patient, Caregiver caregiver) {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/NewTreatmentView.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/NewTreatmentView.fxml"));
             AnchorPane pane = loader.load();
             Scene scene = new Scene(pane);
 
@@ -318,7 +318,7 @@ public class AllTreatmentController {
 
     public void treatmentWindow(Treatment treatment){
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/TreatmentView.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/TreatmentView.fxml"));
             AnchorPane pane = loader.load();
             Scene scene = new Scene(pane);
 

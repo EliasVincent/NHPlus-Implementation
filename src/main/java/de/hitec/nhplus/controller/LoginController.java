@@ -7,9 +7,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 import de.hitec.nhplus.model.User;
 import de.hitec.nhplus.service.AuthenticationService;
@@ -22,9 +25,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+
+    @FXML
+    private ImageView userLogo;
 
     @FXML
     private TextField emailField;
@@ -41,10 +48,18 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // Set placeholder text
+        emailField.setPromptText("Email");
+        passwordField.setPromptText("Password");
+
         // Add key event handler to emailField
         emailField.setOnKeyPressed(this::handleKeyPressed);
         // Add key event handler to passwordField
         passwordField.setOnKeyPressed(this::handleKeyPressed);
+
+        // Load user logo image
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/de/hitec/nhplus/Images/userLogo.png")));
+        userLogo.setImage(image);
     }
 
     private void handleKeyPressed(KeyEvent event) {
@@ -84,9 +99,14 @@ public class LoginController implements Initializable {
         }
     }
 
+    @FXML
+    private void handleCancel(ActionEvent event) {
+        Platform.exit();
+    }
+
     private void openMainWindow() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/hitec/nhplus/MainWindowView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/hitec/nhplus/Views/MainWindowView.fxml"));
             BorderPane root = loader.load();
             Scene scene = new Scene(root);
             Stage mainWindowStage = new Stage();

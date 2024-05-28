@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import de.hitec.nhplus.controller.SessionManager;
+
 import java.io.IOException;
 
 public class MainWindowController {
@@ -32,7 +32,7 @@ public class MainWindowController {
 
     private void loadLoginPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/LoginView.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/LoginView.fxml"));
             mainBorderPane.setCenter(loader.load());
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,7 +49,7 @@ public class MainWindowController {
     @FXML
     private void handleShowAllPatient() {
         if (isUserLoggedIn()) return;
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllPatientView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/AllPatientView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {
@@ -61,7 +61,7 @@ public class MainWindowController {
     @FXML
     private void handleShowAllTreatments() {
         if (isUserLoggedIn()) return;
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllTreatmentView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/AllTreatmentView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {
@@ -72,7 +72,7 @@ public class MainWindowController {
     @FXML
     public void handleShowAllCaregiver(ActionEvent actionEvent) {
         if (isUserLoggedIn()) return;
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/AllCaregiverView.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/AllCaregiverView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
         } catch (IOException exception) {

@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/hitec/nhplus/MainWindowView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/hitec/nhplus/Views/MainWindowView.fxml"));
             BorderPane root = loader.load();
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
