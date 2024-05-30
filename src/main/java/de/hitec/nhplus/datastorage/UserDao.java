@@ -1,7 +1,6 @@
 package de.hitec.nhplus.datastorage;
 
 import de.hitec.nhplus.model.User;
-import de.hitec.nhplus.utils.DateConverter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -29,11 +28,12 @@ public class UserDao extends DaoImp<User> {
      */
     @Override
     protected PreparedStatement getCreateStatement(User user) {
-        String sql = "INSERT INTO user (email, password) VALUES (?, ?)";
+        String sql = "INSERT INTO user (email, password, status) VALUES (?, ?, ?)";
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
+            statement.setInt(3, user.getStatus());
             return statement;
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -72,7 +72,8 @@ public class UserDao extends DaoImp<User> {
         return new User(
                 result.getInt("id"),
                 result.getString("email"),
-                result.getString("password")
+                result.getString("password"),
+                result.getInt("status")
         );
     }
 
@@ -106,7 +107,8 @@ public class UserDao extends DaoImp<User> {
             User user = new User(
                     result.getInt("id"),
                     result.getString("email"),
-                    result.getString("password")
+                    result.getString("password"),
+                    result.getInt("status")
             );
             list.add(user);
         }
@@ -121,12 +123,13 @@ public class UserDao extends DaoImp<User> {
      */
     @Override
     protected PreparedStatement getUpdateStatement(User user) {
-        String sql = "UPDATE user SET email = ?, password = ? WHERE id = ?";
+        String sql = "UPDATE user SET email = ?, password = ?, status = ? WHERE id = ?";
         try {
             PreparedStatement statement = this.connection.prepareStatement(sql);
             statement.setString(1, user.getEmail());
             statement.setString(2, user.getPassword());
-            statement.setLong(3, user.getId());
+            statement.setInt(3, user.getStatus());
+            statement.setLong(4, user.getId());
             return statement;
         } catch (SQLException exception) {
             exception.printStackTrace();

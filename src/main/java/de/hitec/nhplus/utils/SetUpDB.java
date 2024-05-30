@@ -56,7 +56,8 @@ public class SetUpDB {
         final String SQL = "CREATE TABLE IF NOT EXISTS user (" +
                 "   id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "   email TEXT NOT NULL, " +
-                "   password TEXT NOT NULL" +
+                "   password TEXT NOT NULL, " +
+                "   status INTEGER NOT NULL" +
                 ");";
         try (Statement statement = connection.createStatement()) {
             statement.execute(SQL);
@@ -68,8 +69,8 @@ public class SetUpDB {
     private static void setUpUsers() {
         try {
             UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
-            dao.create(new User("user3@gmail.com", hashPassword("333333")));
-            dao.create(new User("user2@gmail.com", hashPassword("222222")));
+            dao.create(new User("user3@gmail.com", hashPassword("333333"), 1));
+            dao.create(new User("user2@gmail.com", hashPassword("222222"), 0));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
