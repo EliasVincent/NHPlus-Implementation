@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
@@ -17,13 +18,18 @@ public class MainWindowController {
     private Button logoutButton;
 
     @FXML
+    private VBox vBox;
+
+    @FXML
     private void initialize() {
         if (!isUserLoggedIn()) {
             loadLoginPage();
             setLogoutButtonVisible(false);
+            setVBoxVisible(false);
         } else {
             loadMainContent();
             setLogoutButtonVisible(true);
+            setVBoxVisible(true);
         }
     }
 
@@ -83,9 +89,13 @@ public class MainWindowController {
         SessionManager.getInstance().logout();
         loadLoginPage();
         setLogoutButtonVisible(false);
+        setVBoxVisible(false);
     }
 
     public void setLogoutButtonVisible(boolean visible) {
         logoutButton.setVisible(visible);
+    }
+    public void setVBoxVisible(boolean visible) {
+        vBox.setVisible(visible);
     }
 }
