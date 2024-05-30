@@ -18,7 +18,7 @@ public class MainWindowController {
 
     @FXML
     private void initialize() {
-        if (!SessionManager.getInstance().isLoggedIn()) {
+        if (!isUserLoggedIn()) {
             loadLoginPage();
             setLogoutButtonVisible(false);
         } else {
@@ -26,8 +26,9 @@ public class MainWindowController {
             setLogoutButtonVisible(true);
         }
     }
+
     private boolean isUserLoggedIn() {
-        return false;
+        return SessionManager.getInstance().isLoggedIn();
     }
 
     private void loadLoginPage() {
@@ -39,7 +40,6 @@ public class MainWindowController {
         }
     }
 
-
     private void loadMainContent() {
         if (isUserLoggedIn()) {
             handleShowAllPatient();
@@ -48,7 +48,7 @@ public class MainWindowController {
 
     @FXML
     private void handleShowAllPatient() {
-        if (isUserLoggedIn()) return;
+        if (!isUserLoggedIn()) return;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/AllPatientView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
@@ -57,10 +57,9 @@ public class MainWindowController {
         }
     }
 
-
     @FXML
     private void handleShowAllTreatments() {
-        if (isUserLoggedIn()) return;
+        if (!isUserLoggedIn()) return;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/AllTreatmentView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
@@ -71,7 +70,7 @@ public class MainWindowController {
 
     @FXML
     public void handleShowAllCaregiver(ActionEvent actionEvent) {
-        if (isUserLoggedIn()) return;
+        if (!isUserLoggedIn()) return;
         FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/AllCaregiverView.fxml"));
         try {
             mainBorderPane.setCenter(loader.load());
@@ -90,5 +89,3 @@ public class MainWindowController {
         logoutButton.setVisible(visible);
     }
 }
-
-
