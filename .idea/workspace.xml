@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a34ff0ce-7744-41f9-a83e-ef9c348ef1da" name="Changes" comment="Refactor login check to use SessionManager">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/MainWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/MainWindowController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/de/hitec/nhplus/Views/MainWindowView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/de/hitec/nhplus/Views/MainWindowView.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="a34ff0ce-7744-41f9-a83e-ef9c348ef1da" name="Changes" comment="Unit-Test zur Überprüfung des Nichtvorhandenseins eines Vermögensstands in der Patiententabelle" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -244,6 +240,7 @@
     <MESSAGE value="Add: view logic logged in or not logged in" />
     <MESSAGE value="Add: SessionManager" />
     <MESSAGE value="Refactor login check to use SessionManager" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor login check to use SessionManager" />
+    <MESSAGE value="Unit-Test zur Überprüfung des Nichtvorhandenseins eines Vermögensstands in der Patiententabelle" />
+    <option name="LAST_COMMIT_MESSAGE" value="Unit-Test zur Überprüfung des Nichtvorhandenseins eines Vermögensstands in der Patiententabelle" />
   </component>
 </project>
