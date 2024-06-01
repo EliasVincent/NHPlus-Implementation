@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a34ff0ce-7744-41f9-a83e-ef9c348ef1da" name="Changes" comment="Unit-Test zur Überprüfung des Nichtvorhandenseins eines Vermögensstands in der Patiententabelle" />
+    <list default="true" id="a34ff0ce-7744-41f9-a83e-ef9c348ef1da" name="Changes" comment="Refactor login check to use SessionManager">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/de/hitec/nhplus/datastorage/PatientDaoTest.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,12 +39,12 @@
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {}
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/EliasVincent/NHPlus-Implementation.git&quot;,
-    &quot;accountId&quot;: &quot;a3554bab-06ee-44b8-9afd-084930e04ada&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/EliasVincent/NHPlus-Implementation.git",
+    "accountId": "715227b8-7ec0-47d0-bb50-2a8f3ec623bc"
   }
-}</component>
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -162,6 +165,7 @@
       <workItem from="1716801120841" duration="10533000" />
       <workItem from="1716877553785" duration="5001000" />
       <workItem from="1716883419558" duration="8815000" />
+      <workItem from="1717241265893" duration="580000" />
     </task>
     <task id="LOCAL-00001" summary="Add: view logic logged in or not logged in">
       <option name="closed" value="true" />
