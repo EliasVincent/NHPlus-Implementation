@@ -4,6 +4,7 @@ import de.hitec.nhplus.datastorage.CaregiverDAO;
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.model.Caregiver;
 import de.hitec.nhplus.utils.DateConverter;
+import de.hitec.nhplus.utils.DateUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -14,7 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.Period;
 
 /**
  * This class is the controller for the view AllCaregiver.fxml. It provides the functionality to show all caregivers in
@@ -140,17 +140,6 @@ public class AllCaregiverController {
     }
 
     /**
-     * This method checks if the time between the creation date and today is more than 10 years.
-     *
-     * @param creationDate The creation date of the item.
-     * @return True if the time between the creation date and today is more than 10 years, false otherwise.
-     */
-    private boolean isOverTenYears(LocalDate creationDate) {
-        LocalDate today = LocalDate.now();
-        Period period = Period.between(creationDate, today);
-        return period.getYears() >= 10;
-    }
-    /**
      * Only when the input data passes all checks, the button to add a new caregiver is enabled.
      * @return True if all input data is valid, false otherwise.
      */
@@ -198,7 +187,7 @@ public class AllCaregiverController {
             return;
         }
 
-        if (!isOverTenYears(creationDate)) {
+        if (!DateUtils.istMindestensZehnJahre(creationDate)) {
             showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this Caregiver as it has not yet reached its 10 years retention period.");
             return;
         }

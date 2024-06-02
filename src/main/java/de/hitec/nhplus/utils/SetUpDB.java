@@ -126,6 +126,8 @@ public class SetUpDB {
             dao.create(new Patient("Ahmet", "Yilmaz", convertStringToLocalDate("1941-02-22"), "3", "013", false, DateConverter.convertLocalDateToString(LocalDate.now())));
             dao.create(new Patient("Hans", "Neumann", convertStringToLocalDate("1955-12-12"), "2", "001", false, DateConverter.convertLocalDateToString(LocalDate.now())));
             dao.create(new Patient("Elisabeth", "Müller", convertStringToLocalDate("1958-03-07"), "5", "110", false, DateConverter.convertLocalDateToString(LocalDate.now())));
+            dao.create(new Patient("User", "Delete", convertStringToLocalDate("1999-08-22"), "5", "97", false, "2001-01-01"));
+            dao.create(new Patient("User", "Not delete", convertStringToLocalDate("1999-08-22"), "5", "97", false, "2020-01-01"));//should be not deleted
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
@@ -175,6 +177,8 @@ private static void setUpTableCaregiver(Connection connection) {
             dao.create(new Caregiver(4, "Sabine", "Weber", "0176-12345682", false, "2023-06-03"));
             dao.create(new Caregiver(5, "Andrea", "Meyer", "0176-12345683", false, "2023-06-03"));
             dao.create(new Caregiver(6, "Thomas", "Meyer", "0176-12345683", false, "2023-06-03"));
+            dao.create(new Caregiver(7, "User", "Delete", "0176-12345683", false, "2001-01-01"));
+            dao.create(new Caregiver(8, "User", "Not Delete", "0176-12345683", false, "2020-01-01"));
         } catch (SQLException exception) {
             exception.printStackTrace();
         }

@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a34ff0ce-7744-41f9-a83e-ef9c348ef1da" name="Changes" comment="Refactor login check to use SessionManager" />
+    <list default="true" id="a34ff0ce-7744-41f9-a83e-ef9c348ef1da" name="Changes" comment="Unit-Test zur Ueberpruefung des Nichtvorhandenseins eines Vermoegensstands in der Patiententabelle">
+      <change afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/utils/DateUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/de/hitec/nhplus/utils/DateUtilsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5a5b8be1-080b-4129-b89d-42f1ea832b90.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5a5b8be1-080b-4129-b89d-42f1ea832b90.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllCaregiverController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllCaregiverController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllPatientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllPatientController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllTreatmentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/controller/AllTreatmentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/utils/SetUpDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/utils/SetUpDB.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +24,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="AnnotationType" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -62,12 +75,18 @@
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;Application.SetUpDB.executor&quot;: &quot;Run&quot;,
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.DateUtilsTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DateUtilsTest.obIstUeberZehnJahre.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.DateUtilsTest.testIsOverTenYears.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.PatientDaoTest.executor&quot;: &quot;Run&quot;,
     &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
     &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -80,7 +99,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.44712645&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -90,6 +109,9 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="de.hitec.nhplus.controller" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/de/hitec/nhplus/service" />
       <recent name="C:\Users\T.Thiel\Documents\23\FA23E\LF05\NHPlus\NHPlus\src\main\resources\de\hitec\nhplus" />
@@ -101,6 +123,14 @@
       <recent name="C:\Users\Soufiane\IdeaProjects\NHPlus-Implementation\src\main\resources\de\hitec\nhplus\Views" />
       <recent name="C:\Users\Soufiane\IdeaProjects\NHPlus-Implementation\src\main\resources\de\hitec\nhplus\Images" />
       <recent name="C:\Users\Soufiane\IdeaProjects\NHPlus-Implementation\src\main\resources\de\hitec\nhplus\CSS" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="de.hitec.nhplus.utils" />
+      <recent name="de.hitec.nhplus.controller" />
+      <recent name="de.hitec.nhplus.datastorage" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="de.hitec.nhplus.utils" />
@@ -133,10 +163,60 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DateUtilsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="NHPlus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.hitec.nhplus.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="de.hitec.nhplus.utils" />
+      <option name="MAIN_CLASS_NAME" value="de.hitec.nhplus.utils.DateUtilsTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DateUtilsTest.obIstUeberZehnJahre" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="NHPlus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.hitec.nhplus.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="de.hitec.nhplus.utils" />
+      <option name="MAIN_CLASS_NAME" value="de.hitec.nhplus.utils.DateUtilsTest" />
+      <option name="METHOD_NAME" value="obIstUeberZehnJahre(java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DateUtilsTest.testIsOverTenYears" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="NHPlus" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="de.hitec.nhplus.utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="de.hitec.nhplus.utils" />
+      <option name="MAIN_CLASS_NAME" value="de.hitec.nhplus.utils.DateUtilsTest" />
+      <option name="METHOD_NAME" value="testIsOverTenYears(java.lang.String,boolean)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.SetUpDB" />
+        <item itemvalue="JUnit.DateUtilsTest" />
+        <item itemvalue="JUnit.DateUtilsTest.obIstUeberZehnJahre" />
+        <item itemvalue="JUnit.DateUtilsTest.testIsOverTenYears" />
       </list>
     </recent_temporary>
   </component>
@@ -164,6 +244,8 @@
       <workItem from="1716883419558" duration="8815000" />
       <workItem from="1717241265893" duration="580000" />
       <workItem from="1717242148388" duration="33000" />
+      <workItem from="1717312874509" duration="14658000" />
+      <workItem from="1717362772131" duration="4013000" />
     </task>
     <task id="LOCAL-00001" summary="Add: view logic logged in or not logged in">
       <option name="closed" value="true" />
@@ -243,6 +325,7 @@
     <MESSAGE value="Add: SessionManager" />
     <MESSAGE value="Refactor login check to use SessionManager" />
     <MESSAGE value="Unit-Test zur Überprüfung des Nichtvorhandenseins eines Vermögensstands in der Patiententabelle" />
-    <option name="LAST_COMMIT_MESSAGE" value="Unit-Test zur Überprüfung des Nichtvorhandenseins eines Vermögensstands in der Patiententabelle" />
+    <MESSAGE value="Unit-Test zur Ueberpruefung des Nichtvorhandenseins eines Vermoegensstands in der Patiententabelle" />
+    <option name="LAST_COMMIT_MESSAGE" value="Unit-Test zur Ueberpruefung des Nichtvorhandenseins eines Vermoegensstands in der Patiententabelle" />
   </component>
 </project>

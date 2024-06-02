@@ -2,7 +2,6 @@ package de.hitec.nhplus.controller;
 
 import de.hitec.nhplus.datastorage.DaoFactory;
 import de.hitec.nhplus.datastorage.PatientDao;
-import de.hitec.nhplus.model.Caregiver;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,10 +12,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import de.hitec.nhplus.model.Patient;
 import de.hitec.nhplus.utils.DateConverter;
+import de.hitec.nhplus.utils.DateUtils;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.Period;
 
 
 /**
@@ -161,17 +160,7 @@ public class AllPatientController {
         }
     }
 
-    /**
-     * This method checks if the time between the creation date and today is more than 10 years.
-     *
-     * @param creationDate The creation date of the item.
-     * @return True if the time between the creation date and today is more than 10 years, false otherwise.
-     */
-    private boolean isOverTenYears(LocalDate creationDate) {
-        LocalDate today = LocalDate.now();
-        Period period = Period.between(creationDate, today);
-        return period.getYears() >= 10;
-    }
+
     /**
      * When a cell of the column with first names was changed, this method will be called, to persist the change.
      *
@@ -275,7 +264,7 @@ public class AllPatientController {
             return;
         }
 
-        if (!isOverTenYears(creationDate)) {
+        if (!DateUtils.istMindestensZehnJahre(creationDate)) {
             showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this patient as it has not yet reached its 10 years retention period.");
             return;
         }
