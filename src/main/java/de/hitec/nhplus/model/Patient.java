@@ -159,6 +159,16 @@ public class Patient extends Person {
         return true;
     }
 
+    /**
+     * Constructor to initiate an object of class <code>Patient</code> with the given parameter.
+     * @param firstName First name of the patient.
+     * @param surname Last name of the patient.
+     * @param dateOfBirth Date of birth of the patient.
+     * @param careLevel Care level of the patient.
+     * @param roomNumber Room number of the patient.
+     * @param locked Boolean to indicate if the patient is locked. (data privacy)
+     * @param pid Id of the patient.
+     */
     public Patient(String firstName, String surname, SimpleStringProperty dateOfBirth, SimpleStringProperty careLevel,
             SimpleStringProperty roomNumber, boolean locked, SimpleLongProperty pid) {
         super(firstName, surname);
@@ -169,6 +179,10 @@ public class Patient extends Person {
         this.pid = pid;
     }
 
+    /**
+     * Presents the patient as a string.
+     * @return String representation of the patient.
+     */
     public String toString() {
         return "Patient" + "\nMNID: " + this.pid +
                 "\nFirstname: " + this.getFirstName() +

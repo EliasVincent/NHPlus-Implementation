@@ -16,6 +16,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * The NewTreatmentController class is a controller class for the new treatment fxml view.
+ * It handles user input and creates a new treatment.
+ */
 public class NewTreatmentController {
 
     @FXML
@@ -50,6 +54,13 @@ public class NewTreatmentController {
     private Caregiver caregiver;
     private Stage stage;
 
+    /**
+     * Initializes the controller with the given parameters. called automatically when the associated FXML document is loaded.
+     * @param controller the AllTreatmentController
+     * @param stage the stage (JavaFX)
+     * @param patient the patient
+     * @param caregiver the caregiver
+     */
     public void initialize(AllTreatmentController controller, Stage stage, Patient patient, Caregiver caregiver) {
         this.controller= controller;
         this.patient = patient;
@@ -79,16 +90,25 @@ public class NewTreatmentController {
         this.showCaregiverData();
     }
 
+    /**
+     * Shows the patient data in the view.
+     */
     private void showPatientData(){
         this.labelFirstName.setText(patient.getFirstName());
         this.labelSurname.setText(patient.getSurname());
     }
 
+    /**
+     * Shows the caregiver data in the view.
+     */
     private void showCaregiverData(){
         this.labelCaregiverFirstName.setText(caregiver.getFirstName());
         this.labelCaregiverSurname.setText(caregiver.getSurname());
     }
 
+    /**
+     * Handles the event when the "Add" button is clicked and closes the JavaFX stage.
+     */
     @FXML
     public void handleAdd(){
         LocalDate date = this.datePicker.getValue();
@@ -104,6 +124,10 @@ public class NewTreatmentController {
         stage.close();
     }
 
+    /**
+     * Creates a new treatment in the database.
+     * @param treatment the treatment to be created
+     */
     private void createTreatment(Treatment treatment) {
         TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
         try {
@@ -113,11 +137,18 @@ public class NewTreatmentController {
         }
     }
 
+    /**
+     * Handles the event when the "Cancel" button is clicked and closes the JavaFX stage.
+     */
     @FXML
     public void handleCancel(){
         stage.close();
     }
 
+    /**
+     * Checks if the input data is invalid.
+     * @return true if the input data is invalid, false otherwise
+     */
     private boolean areInputDataInvalid() {
         if (this.textFieldBegin.getText() == null || this.textFieldEnd.getText() == null) {
             return true;

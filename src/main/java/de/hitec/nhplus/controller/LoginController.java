@@ -28,6 +28,12 @@ import java.sql.SQLException;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+/**
+ * The LoginController class is a controller class for the login view.
+ * It handles user input, authentication, and navigation to the main application window.
+ * The class implements the Initializable interface to initialize the user interface
+ * and set event handlers when the associated FXML document is loaded.
+ */
 public class LoginController implements Initializable {
 
     @FXML
@@ -41,6 +47,10 @@ public class LoginController implements Initializable {
 
     private AuthenticationService authenticationService;
 
+    /**
+     * The constructor initializes the authentication service by creating a new instance
+     * of the AuthenticationService class with a database connection.
+     */
     public LoginController() {
         Connection connection = ConnectionBuilder.getConnection();
         this.authenticationService = new AuthenticationService(connection);
@@ -55,7 +65,6 @@ public class LoginController implements Initializable {
      * @param resources A ResourceBundle containing the resources for localization. Can be null,
      * if the FXML document was not loaded with a ResourceBundle.
      */
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set placeholder text
@@ -80,7 +89,6 @@ public class LoginController implements Initializable {
      * the login process through the handleLogin method.
      * @param event The KeyEvent representing the key press event.
      */
-
     private void handleKeyPressed(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
             event.consume();
@@ -138,6 +146,11 @@ public class LoginController implements Initializable {
         Platform.exit();
     }
 
+    /**
+     * Opens the main application window.
+     * This method loads the FXML document for the main application window,
+     * creates a new Stage, sets the scene, and shows the stage.
+     */
     private void openMainWindow() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/de/hitec/nhplus/Views/MainWindowView.fxml"));
@@ -152,6 +165,12 @@ public class LoginController implements Initializable {
         }
     }
 
+    /**
+     * Displays an alert dialog with the specified alert type, title, and message.
+     * @param alertType The AlertType representing the type of the alert dialog.
+     * @param title Title.
+     * @param message Message to display.
+     */
     private void showAlert(Alert.AlertType alertType, String title, String message) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);

@@ -3,6 +3,9 @@ package de.hitec.nhplus.utils;
 import java.time.LocalDate;
 import java.time.Period;
 
+/**
+ * This class provides more methods to work with dates.
+ */
 public class DateUtils {
 
     /**

@@ -377,6 +377,11 @@ public class AllPatientController {
         this.textFieldRoomNumber.clear();
     }
 
+    /**
+     * Checks if the input data in the <code>TextField</code>s is valid.
+     *
+     * @return true if the input data is valid, false otherwise.
+     */
     private boolean areInputDataValid() {
         if (!this.textFieldDateOfBirth.getText().isBlank()) {
             try {

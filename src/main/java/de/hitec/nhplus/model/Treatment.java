@@ -5,6 +5,9 @@ import de.hitec.nhplus.utils.DateConverter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ * Treatments are performed by caregivers on patients.
+ */
 public class Treatment {
     private long tid;
     private final long pid;
@@ -87,6 +90,10 @@ public class Treatment {
         this.end = end;
     }
 
+    /**
+     * Is the treatment locked?
+     * @return Boolean to indicate if the treatment is locked.
+     */
     public boolean isLocked() {
         return locked;
     }
@@ -151,6 +158,10 @@ public class Treatment {
         this.remarks = remarks;
     }
 
+    /**
+     * Presents the object as a string.
+     * @return String representation of the object.
+     */
     public String toString() {
         return "\nBehandlung" + "\nTID: " + this.tid +
                 "\nPID: " + this.pid +

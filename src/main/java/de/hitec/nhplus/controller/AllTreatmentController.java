@@ -28,6 +28,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javafx.beans.value.ObservableValue;
 
+/**
+ * Controller class for the AllTreatmentView.fxml file.
+ */
 public class AllTreatmentController {
 
     @FXML
@@ -67,6 +70,9 @@ public class AllTreatmentController {
     private ArrayList<Patient> patientList;
     private ArrayList<Caregiver> caregiverList;
 
+    /**
+     * Initializes the controller class. This method is automatically called after the fxml file has been loaded.
+     */
     public void initialize() {
         readAllAndShowInTableView();
         comboBoxPatientSelection.setItems(patientSelection);
@@ -140,6 +146,9 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Reads all treatments from the database and displays them in the table view.
+     */
     public void readAllAndShowInTableView() {
         this.treatments.clear();
         comboBoxPatientSelection.getSelectionModel().select(0);
@@ -151,6 +160,9 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Creates the data entries for the patient and caregiver comboboxes.
+     */
     private void createComboBoxData() {
         PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
         try {
@@ -177,6 +189,9 @@ public class AllTreatmentController {
     }
 
 
+    /**
+     * Handles the action of the patient combobox with the database.
+     */
     @FXML
     public void handleComboBox() {
         String selectedPatient = this.comboBoxPatientSelection.getSelectionModel().getSelectedItem();
@@ -201,6 +216,9 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Handles the action of the caregiver combobox with the database.
+     */
     @FXML
     public void handleCaregiverComboBox(ActionEvent actionEvent) {
         String selectedCaregiver = this.comboBoxPatientSelection.getSelectionModel().getSelectedItem();
@@ -225,6 +243,11 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Searches for a caregiver in the caregiver list.
+     * @param surname The surname of the caregiver to search for.
+     * @return The caregiver if found, null otherwise.
+     */
     private Caregiver searchCaregiverInList(String surname) {
         for (Caregiver caregiver : this.caregiverList) {
             if (caregiver.getSurname().equals(surname)) {
@@ -234,6 +257,11 @@ public class AllTreatmentController {
         return null;
     }
 
+    /**
+     * Searches for a patient in the patient list.
+     * @param surname The surname of the patient to search for.
+     * @return The patient if found, null otherwise.
+     */
     private Patient searchInList(String surname) {
         for (Patient patient : this.patientList) {
             if (patient.getSurname().equals(surname)) {
@@ -243,6 +271,9 @@ public class AllTreatmentController {
         return null;
     }
 
+    /**
+     * Handles the action of the delete button. It deletes the selected treatment from the database.
+     */
     @FXML
     public void handleDelete() {
         // Get the selected selectedItem from the table view
@@ -337,6 +368,9 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Handles the action of the new treatment button. It opens a new window to create a new treatment.
+     */
     @FXML
     public void handleNewTreatment() {
         try{
@@ -354,6 +388,10 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Handles the action of the mouse click on the table view. If the user double-clicks on a treatment, the treatment
+     * window is opened.
+     */
     @FXML
     public void handleMouseClick() {
         tableView.setOnMouseClicked(event -> {
@@ -365,6 +403,12 @@ public class AllTreatmentController {
         });
     }
 
+    /**
+     * Opens a new window to create a new treatment.
+     *
+     * @param patient   The patient for the new treatment.
+     * @param caregiver The caregiver for the new treatment.
+     */
     public void newTreatmentWindow(Patient patient, Caregiver caregiver) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/NewTreatmentView.fxml"));
@@ -385,6 +429,11 @@ public class AllTreatmentController {
         }
     }
 
+    /**
+     * Opens a new window to display the treatment.
+     *
+     * @param treatment The treatment to display.
+     */
     public void treatmentWindow(Treatment treatment){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("/de/hitec/nhplus/Views/TreatmentView.fxml"));

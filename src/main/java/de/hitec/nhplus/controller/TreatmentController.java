@@ -15,6 +15,10 @@ import de.hitec.nhplus.utils.DateConverter;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+/**
+ * The TreatmentController class is a controller class for the treatment fxml view.
+ * It handles user input and updates an existing treatment.
+ */
 public class TreatmentController {
 
     @FXML
@@ -53,6 +57,12 @@ public class TreatmentController {
     private Caregiver caregiver;
     private Treatment treatment;
 
+    /**
+     * Initializes the controller with the given parameters. called automatically when the associated FXML document is loaded.
+     * @param controller the AllTreatmentController
+     * @param stage the stage (JavaFX)
+     * @param treatment the treatment to be updated
+     */
     public void initializeController(AllTreatmentController controller, Stage stage, Treatment treatment) {
         this.stage = stage;
         this.controller= controller;
@@ -68,6 +78,9 @@ public class TreatmentController {
         }
     }
 
+    /**
+     * Sets the data of the treatment in the view.
+     */
     private void showData(){
         this.labelPatientName.setText(patient.getSurname()+", "+patient.getFirstName());
         this.labelCaregiverSurname.setText(caregiver.getSurname());
@@ -82,6 +95,9 @@ public class TreatmentController {
         this.textAreaRemarks.setText(this.treatment.getRemarks());
     }
 
+    /**
+     * Handles the event when the "Change" button is clicked and updates the treatment object.
+     */
     @FXML
     public void handleChange(){
         this.treatment.setDate(this.datePicker.getValue().toString());
@@ -94,6 +110,9 @@ public class TreatmentController {
         stage.close();
     }
 
+    /**
+     * Updates the treatment in the database.
+     */
     private void doUpdate(){
         TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
         try {
@@ -103,6 +122,9 @@ public class TreatmentController {
         }
     }
 
+    /**
+     * Handles the event when the "Cancel" button is clicked and closes the JavaFX stage.
+     */
     @FXML
     public void handleCancel(){
         stage.close();

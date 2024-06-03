@@ -10,6 +10,10 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
+/**
+ * The MainWindowController class is a controller class for the main application window.
+ * It handles navigation to the different views.
+ */
 public class MainWindowController {
 
     @FXML
@@ -20,6 +24,10 @@ public class MainWindowController {
     @FXML
     private VBox vBox;
 
+    /**
+     * The initialize method is called automatically when the associated FXML document is loaded.
+     * It checks if a user is logged in and loads the appropriate content.
+     */
     @FXML
     private void initialize() {
         if (!isUserLoggedIn()) {
@@ -33,6 +41,10 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Checks if a user is logged in.
+     * @return true if a user is logged in, false otherwise
+     */
     private boolean isUserLoggedIn() {
         return SessionManager.getInstance().isLoggedIn();
     }
@@ -46,12 +58,18 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Loads the main content of the application, if a user is logged in.
+     */
     private void loadMainContent() {
         if (isUserLoggedIn()) {
             handleShowAllPatient();
         }
     }
 
+    /**
+     * Handles the event when the "Show All Patient" button is clicked.
+     */
     @FXML
     private void handleShowAllPatient() {
         if (!isUserLoggedIn()) return;
@@ -63,6 +81,9 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Handles the event when the "Show All Treatments" button is clicked.
+     */
     @FXML
     private void handleShowAllTreatments() {
         if (!isUserLoggedIn()) return;
@@ -74,6 +95,9 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Handles the event when the "Show All Caregiver" button is clicked.
+     */
     @FXML
     public void handleShowAllCaregiver(ActionEvent actionEvent) {
         if (!isUserLoggedIn()) return;
@@ -85,6 +109,9 @@ public class MainWindowController {
         }
     }
 
+    /**
+     * Handles the event when the "Show All Medication" button is clicked.
+     */
     public void handleLogout(ActionEvent actionEvent) {
         SessionManager.getInstance().logout();
         loadLoginPage();
@@ -92,9 +119,18 @@ public class MainWindowController {
         setVBoxVisible(false);
     }
 
+    /**
+     * Sets the visibility of the logout button.
+     * @param visible true to make the logout button visible, false to hide it.
+     */
     public void setLogoutButtonVisible(boolean visible) {
         logoutButton.setVisible(visible);
     }
+
+    /**
+     * Sets the visibility of the VBox.
+     * @param visible true to make the VBox visible, false to hide it.
+     */
     public void setVBoxVisible(boolean visible) {
         vBox.setVisible(visible);
     }

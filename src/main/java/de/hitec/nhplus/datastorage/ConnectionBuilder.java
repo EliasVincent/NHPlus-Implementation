@@ -6,6 +6,9 @@ import java.sql.SQLException;
 
 import org.sqlite.SQLiteConfig;
 
+/**
+ * The ConnectionBuilder class is a utility class to create and manage a connection to the SQLite database.
+ */
 public class ConnectionBuilder {
 
     private static final String DB_NAME = "nursingHome.db";
@@ -13,6 +16,11 @@ public class ConnectionBuilder {
 
     private static Connection connection;
 
+    /**
+     * Returns a connection to the SQLite database.
+     * If the connection is null, a new connection is created.
+     * @return a connection to the SQLite database
+     */
     synchronized public static Connection getConnection() {
         try {
             if (ConnectionBuilder.connection == null) {
@@ -27,6 +35,10 @@ public class ConnectionBuilder {
         return ConnectionBuilder.connection;
     }
 
+    /**
+     * Closes the connection to the SQLite database.
+     * If the connection is not null, it is closed and set to null.
+     */
     synchronized public static void closeConnection() {
         try {
             if (ConnectionBuilder.connection != null) {

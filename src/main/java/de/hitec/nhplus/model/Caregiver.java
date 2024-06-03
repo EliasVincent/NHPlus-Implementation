@@ -22,6 +22,10 @@ public class Caregiver extends Person {
         return cid.get();
     }
 
+    /**
+     * Property to get the Caregiver id.
+     * @return LongProperty of the Caregiver id.
+     */
     public LongProperty cidProperty() {
         return cid;
     }
@@ -38,6 +42,10 @@ public class Caregiver extends Person {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * Is the caregiver locked?
+     * @return Boolean to indicate if the caregiver is locked.
+     */
     public boolean isLocked() {
         return locked;
     }

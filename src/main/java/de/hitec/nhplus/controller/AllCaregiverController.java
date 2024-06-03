@@ -148,18 +148,30 @@ public class AllCaregiverController {
                 && !this.txfTelephone.getText().isBlank() && this.validatePhoneNumber(this.txfTelephone.getText());
     }
 
+    /**
+     * This method is called when the user edits the first name of a caregiver.
+     * @param event The event that triggered the method call.
+     */
     @FXML
     public void handleOnEditFirstName(TableColumn.CellEditEvent<Caregiver, String> event) {
         event.getRowValue().setFirstName(event.getNewValue());
         this.doUpdate(event);
     }
 
+    /**
+     * This method is called when the user edits the surname of a caregiver.
+     * @param event The event that triggered the method call.
+     */
     @FXML
     public void handleOnEditSurname(TableColumn.CellEditEvent<Caregiver, String> event) {
         event.getRowValue().setSurname(event.getNewValue());
         this.doUpdate(event);
     }
 
+    /**
+     * This method is called when the user edits the phone number of a caregiver.
+     * @param event The event that triggered the method call.
+     */
     @FXML
     public void handleOnEditPhoneNumber(TableColumn.CellEditEvent<Caregiver, String> event) {
         event.getRowValue().setPhoneNumber(event.getNewValue());

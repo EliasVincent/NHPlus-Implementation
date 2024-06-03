@@ -41,6 +41,7 @@ public class SetUpDB {
 
     /**
      * This method wipes the database by dropping the tables.
+     * @param connection the connection to the database
      */
     public static void wipeDb(Connection connection) {
         try (Statement statement = connection.createStatement()) {
@@ -52,6 +53,11 @@ public class SetUpDB {
             System.out.println(exception.getMessage());
         }
     }
+
+    /**
+     * This method sets up the table patient in the database.
+     * @param connection the connection to the database
+     */
     private static void setUpTableUser(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS user (" +
                 "   id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -66,6 +72,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the table user in the database.
+     */
     private static void setUpUsers() {
         try {
             UserDao dao = DaoFactory.getDaoFactory().createUserDAO();
@@ -75,6 +84,11 @@ public class SetUpDB {
             exception.printStackTrace();
         }
     }
+
+    /**
+     * This method sets up the table patient in the database.
+     * @param connection the connection to the database
+     */
     private static void setUpTablePatient(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS patient (" +
                 "   pid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -93,6 +107,10 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the table treatment in the database.
+     * @param connection the connection to the database
+     */
     private static void setUpTableTreatment(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS treatment (" +
                 "   tid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -117,6 +135,9 @@ public class SetUpDB {
     }
 
 
+    /**
+     * This method sets up the example patients in the database.
+     */
     private static void setUpPatients() {
         try {
             PatientDao dao = DaoFactory.getDaoFactory().createPatientDAO();
@@ -133,6 +154,9 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the example treatments in the database.
+     */
     private static void setUpTreatments() {
         try {
             TreatmentDao dao = DaoFactory.getDaoFactory().createTreatmentDao();
@@ -151,6 +175,10 @@ public class SetUpDB {
         }
     }
 
+    /**
+     * This method sets up the table caregiver in the database.
+     * @param connection the connection to the database
+     */
 private static void setUpTableCaregiver(Connection connection) {
         final String SQL = "CREATE TABLE IF NOT EXISTS caregiver (" +
                 "   cid INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -167,6 +195,9 @@ private static void setUpTableCaregiver(Connection connection) {
         }
     }
 
+    /**
+     * This method sets up the example caregivers in the database.
+     */
     private static void setUpCaregivers() {
         try {
             CaregiverDAO dao = DaoFactory.getDaoFactory().createCaregiverDAO();
@@ -185,11 +216,19 @@ private static void setUpTableCaregiver(Connection connection) {
     }
 
 
-    // TODO:
+    /**
+     * This method hashes the given password. As a placeholder, this method simply returns the password as is.
+     * @param number the password to hash.
+     * @return the hashed password.
+     */
     private static String hashPassword(String number) {
         return number;
     }
 
+    /**
+     * This method is the main method to execute the class.
+     * @param args the arguments to execute the class. (There are none at the moment).
+     */
     public static void main(String[] args) {
         SetUpDB.setUpDb();
     }
