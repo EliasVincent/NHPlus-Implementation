@@ -17,3 +17,8 @@ Password: 222222`
 Email: user3@gmail.com
 Password: 333333`
 ```
+
+## JavaDoc
+
+The JavaDoc HTML Documentation can be found in the zip folder in the project root.
+
