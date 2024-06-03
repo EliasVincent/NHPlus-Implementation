@@ -4,6 +4,7 @@
 
 - Clone the Repo
 - Use JDK 22
+- Make sure than maven has downloaded all the dependencies beforehand
 - Run the `main` method inside of `SetUpDB.java`
 - A Database with example data should exist now
 - Run the `Main` class to launch NHPlus
@@ -12,10 +13,10 @@
 ## Example Login Users
 ```
 Email: user2@gmail.com
-Password: 222222`
+Password: 222222
 
 Email: user3@gmail.com
-Password: 333333`
+Password: 333333
 ```
 
 ## JavaDoc
