@@ -10,7 +10,7 @@ public class DateUtils {
      * @param creationDate The creation date of the item.
      * @return True if the time between the creation date and today is more than 10 years, false otherwise.
      */
-    public static boolean istMindestensZehnJahre(LocalDate creationDate) {
+    public static boolean isAtLeastTenYears(LocalDate creationDate) {
         LocalDate today = LocalDate.now();
         Period period = Period.between(creationDate, today);
         return period.getYears() >= 10;

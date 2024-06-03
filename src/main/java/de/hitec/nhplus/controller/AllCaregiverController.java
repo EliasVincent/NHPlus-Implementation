@@ -187,7 +187,7 @@ public class AllCaregiverController {
             return;
         }
 
-        if (!DateUtils.istMindestensZehnJahre(creationDate)) {
+        if (!DateUtils.isAtLeastTenYears(creationDate)) {
             showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this Caregiver as it has not yet reached its 10 years retention period.");
             return;
         }
