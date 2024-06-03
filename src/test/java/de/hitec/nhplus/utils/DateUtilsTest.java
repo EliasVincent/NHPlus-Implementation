@@ -11,10 +11,10 @@ import java.time.LocalDate;
 class DateUtilsTest {
 
     /**
-     * Diese Methode testet, ob ein angegebenes Datum mindestens zehn Jahre.
-     * @param datum angegebenes Datum
-     * @param erwartet erwartet Boolean Wert, True wenn das Datum gleich oder größer als 10 Jahre ist
-     * TestDatum: 02-06-2024
+     * This method tests whether a given date is at least ten years old.
+     * @param date given date
+     * @param expected expected Boolean value, True if the date is equal to or greater than 10 years
+     * TestDate: 02-06-2024
      */
     @ParameterizedTest
     @CsvSource({
@@ -24,8 +24,8 @@ class DateUtilsTest {
         "2020-01-01, false",
         "2000-01-01, true"
     })
-    public void obIstMindestensZehnJahre (String datum,  boolean erwartet) {
-        assertEquals(erwartet, DateUtils.istMindestensZehnJahre(LocalDate.parse(datum)));
+    public void ifAtLeastTenYears(String date, boolean expected) {
+        assertEquals(expected, DateUtils.isAtLeastTenYears(LocalDate.parse(date)));
     }
 
 
