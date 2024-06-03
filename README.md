@@ -22,3 +22,8 @@ Password: 333333`
 
 The JavaDoc HTML Documentation can be found in the zip folder in the project root.
 
+## Notes
+
+- The dates like birthdate have to be in the correct format, like `2020-01-01`
+- The Add Button will not be available until the input fields have passed all validation checks (like phone number having more than five digits)
+

@@ -47,7 +47,7 @@
                                     <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="password-field" prefWidth="230.0"/>
                                     <children>
                                         <Button text="Login" onAction="#handleLogin" styleClass="button" prefWidth="230.0"/>
-                                        <Button text="Cancel" onAction="#handleCancel" styleClass="button" prefWidth="230.0"/>
+                                        <Button text="Abbrechen" onAction="#handleCancel" styleClass="button" prefWidth="230.0"/>
                                     </children>
                                 </VBox>
                             </GridPane>
