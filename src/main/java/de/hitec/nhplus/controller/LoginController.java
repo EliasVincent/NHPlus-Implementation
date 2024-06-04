@@ -118,7 +118,7 @@ public class LoginController implements Initializable {
         try {
             User user = authenticationService.authenticate(email, password);
             if (user != null) {
-                showAlert(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, " + user.getEmail() + "!");
+                showAlert(Alert.AlertType.INFORMATION, "Login Erfolgreich", "Willkommen, " + user.getEmail() + "!");
 
                 SessionManager.getInstance().setUserSession(user);
 
@@ -127,11 +127,11 @@ public class LoginController implements Initializable {
 
                 openMainWindow();
             } else {
-                showAlert(Alert.AlertType.ERROR, "Login Failed", "Invalid email or password.");
+                showAlert(Alert.AlertType.ERROR, "Login Fehlgeschlagen", "Unbekannte Email oder Passwort.");
             }
         } catch (SQLException exception) {
             exception.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Database Error", "An error occurred while connecting to the database.");
+            showAlert(Alert.AlertType.ERROR, "Datenbankfehler", "Ein Fehler ist bei der Datenbankverbindung aufgetreten.");
         }
     }
     /**
@@ -161,7 +161,7 @@ public class LoginController implements Initializable {
             mainWindowStage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Error", "An error occurred while loading the main window.");
+            showAlert(Alert.AlertType.ERROR, "Fehler", "Ein Fehler ist beim Öffnen des Hauptfensters aufgetreten.");
         }
     }
 

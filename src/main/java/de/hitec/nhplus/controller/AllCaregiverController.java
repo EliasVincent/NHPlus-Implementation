@@ -188,19 +188,19 @@ public class AllCaregiverController {
         Caregiver selectedItem = tableView.getSelectionModel().getSelectedItem();
 
         if (selectedItem == null) {
-            showAlert(Alert.AlertType.ERROR, "No Selection", "No Caregiver selected", "Please select a Caregiver to delete.");
+            showAlert(Alert.AlertType.ERROR, "Keine Auswahl", "Keine Pflegekraft ausgewählt", "Bitte wählen Sie eine Pflegekraft zum Löschen aus.");
             return;
         }
 
         LocalDate creationDate = DateConverter.convertStringToLocalDate(selectedItem.getDateCreated());
-        boolean confirmDelete = showConfirmationAlert("Delete Caregiver", "This entry has a retention period of 10 years. Do you really want to delete this entry?");
+        boolean confirmDelete = showConfirmationAlert("Pflegekraft Löschen", "Dieser Eintrag hat eine Aufbewahrungsfrist von 10 Jahren. Möchten Sie ihn wirklich löschen?");
 
         if (!confirmDelete) {
             return;
         }
 
         if (!DateUtils.isAtLeastTenYears(creationDate)) {
-            showAlert(Alert.AlertType.ERROR, "Cannot Delete", "Deletion Error", "You cannot delete this Caregiver as it has not yet reached its 10 years retention period.");
+            showAlert(Alert.AlertType.ERROR, "Löschen Fehlgeschlagen", "Löschfehler", "Sie können nur Pflegekräfte löschen, die mindestens 10 Jahre alt sind.");
             return;
         }
 
@@ -259,7 +259,7 @@ public class AllCaregiverController {
      */
     private void handleSQLException(SQLException exception) {
         exception.printStackTrace();
-        showAlert(Alert.AlertType.INFORMATION, "Information", "Deletion Failed", "Please delete all related treatments before deleting this entry.");
+        showAlert(Alert.AlertType.INFORMATION, "Information", "Löschen Fehlgeschlagen", "Bitten löschen Sie vorher alle Behandlungen, die dieser Pflegekraft zugeordnet sind.");
     }
 
     /**
